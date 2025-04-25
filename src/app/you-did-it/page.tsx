@@ -4,21 +4,18 @@ import Link from 'next/link';
 import { useEffect, useState } from 'react';
 import Confetti from 'react-confetti';
 import { useWindowSize } from 'react-use';
-import { useSearchParams } from 'next/navigation';
 
 export default function YouDidIt() {
   const [quote, setQuote] = useState('');
   const { width, height } = useWindowSize();
   const [hasMounted, setHasMounted] = useState(false);
-  const searchParams = useSearchParams();
-  const minutes = searchParams.get('minutes') || '25';
 
   useEffect(() => {
     setHasMounted(true);
     const quotes = [
       "You did it! You focused like a beast. 💪",
       "Legend status achieved. Now take a break.",
-      "That was ${minutes} minutes of pure discipline. 👑",
+      "That was pure discipline. 👑",
       "Look at you go! Productivity unlocked.",
       "You crushed it. No distractions, just results."
     ];
@@ -36,7 +33,7 @@ export default function YouDidIt() {
     <main className="flex flex-col items-center justify-center min-h-screen bg-green-900 text-white text-center px-4">
       {hasMounted && <Confetti width={width} height={height} />}
       <h1 className="text-5xl font-bold mb-6">🎉 You Did It!</h1>
-      <Suspense fallback={<div className="text-2xl mb-6">{quote}</div>}></Suspense>
+      <p className="text-2xl mb-6">{quote}</p>
 
       <div className="my-8 flex justify-center">
         <ins
