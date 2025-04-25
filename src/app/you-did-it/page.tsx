@@ -95,7 +95,7 @@ export default function YouDidIt() {
         You’re {Math.floor(Math.random() * 51 + 50)}% more focused than yesterday’s version of you.
       </p>
 
-      <p className="text-lg mt-2 text-green-300 italic">{scoreMessage}</p>
+      <p className="text-lg mt-2 text-green-300 italic mb-4">{scoreMessage}</p>
 
       <Link href="/">
         <button className="px-6 py-3 bg-white text-green-900 text-lg font-semibold rounded-lg hover:bg-gray-100 transition">
