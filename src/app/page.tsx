@@ -28,7 +28,7 @@ export default function Home() {
         setSecondsLeft((prev) => prev - 1);
       }, 1000);
     } else if (isRunning && secondsLeft === 0) {
-      router.push('/you-did-it');
+      router.push('/you-did-it?minutes=${timeInput}');
     }
     return () => clearInterval(timer);
   }, [isRunning, secondsLeft]);
