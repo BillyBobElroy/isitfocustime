@@ -15,7 +15,7 @@ export default function YouDidIt() {
     const quotes = [
       "You did it! You focused like a beast. 💪",
       "Legend status achieved. Now take a break.",
-      "That was 25 minutes of pure discipline. 👑",
+      "That was pure discipline. 👑",
       "Look at you go! Productivity unlocked.",
       "You crushed it. No distractions, just results."
     ];
