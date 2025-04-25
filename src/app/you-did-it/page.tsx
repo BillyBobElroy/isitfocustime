@@ -13,11 +13,53 @@ export default function YouDidIt() {
   useEffect(() => {
     setHasMounted(true);
     const quotes = [
-      "You did it! You focused like a beast. 💪",
-      "Legend status achieved. Now take a break.",
-      "That was pure discipline. 👑",
-      "Look at you go! Productivity unlocked.",
-      "You crushed it. No distractions, just results."
+  "That was pure discipline. 👑",
+  "You crushed it. No distractions, just domination.",
+  "Look at you go. 🏆 Elon would be proud.",
+  "You focused more than the average squirrel.",
+  "All grind, no scroll. Respect.",
+  "Just out-focused 99.7% of humanity.",
+  "This is why you're built different.",
+  "That session? Historic.",
+  "Your brain just grew a new wrinkle.",
+  "You're now eligible for a productivity tattoo.",
+  "Legend status: UNLOCKED.",
+  "The timer bowed down to your focus.",
+  "Your dopamine resistance is unmatched.",
+  "You focused so hard, your coffee got scared.",
+  "One session closer to world domination.",
+  "Everyone else: doomscrolling. You: winning.",
+  "If focus was currency, you'd be rich.",
+  "NASA called. They need your discipline.",
+  "Your inner monologue just got quieter.",
+  "The procrastination demons weep tonight.",
+  "Productivity? Consider it demolished.",
+  "You were so focused, it should be illegal.",
+  "Your future self says thanks.",
+  "That focus session was clinically hot.",
+  "You stared at the void, and worked anyway.",
+  "You vs. who you were yesterday? You won.",
+  "You're now 0.3% closer to being a time wizard.",
+  "That focus session just cured my ADHD by proxy.",
+  "Time = respected. Mind = refined.",
+  "Not all heroes wear capes. Some click 'Start'.",
+  "Your chair deserves a round of applause.",
+  "You just pulled off a mental heist. 💼",
+  "You ignored every distraction. That’s elite.",
+  "Did you just earn a black belt in concentration?",
+  "The silence applauded you. Well done.",
+  "That timer couldn’t handle your power.",
+  "Somewhere, your to-do list just shivered.",
+  "That was focus. The good kind.",
+  "A productivity monk. That’s you now.",
+  "This site’s proud of you. For real.",
+  "Even your phone was like: whoa.",
+  "You’re focused. You’re dangerous.",
+  "I heard a bell ring. A new neural path unlocked.",
+  "That session? 10/10 productivity wizards would recommend.",
+  "Someone tell the algorithm you’re winning.",
+  "That wasn’t just focus. That was ART.",
+  "This is the way. 🧘‍♂️"
     ];
     setQuote(quotes[Math.floor(Math.random() * quotes.length)]);
 
@@ -35,6 +77,16 @@ export default function YouDidIt() {
       <h1 className="text-5xl font-bold mb-6">🎉 You Did It!</h1>
       <p className="text-2xl mb-6">{quote}</p>
 
+      <p className="text-lg mt-2 text-green-300 italic">
+        You’re {Math.floor(Math.random() * 51 + 50)}% more focused than yesterday’s version of you.
+      </p>
+
+      <Link href="/">
+        <button className="px-6 py-3 bg-white text-green-900 text-lg font-semibold rounded-lg hover:bg-gray-100 transition">
+          Start Another Session
+        </button>
+      </Link>
+
       <div className="my-8 flex justify-center">
         <ins
           className="adsbygoogle"
@@ -45,12 +97,6 @@ export default function YouDidIt() {
           data-full-width-responsive="true"
         />
       </div>
-
-      <Link href="/">
-        <button className="px-6 py-3 bg-white text-green-900 text-lg font-semibold rounded-lg hover:bg-gray-100 transition">
-          Start Another Session
-        </button>
-      </Link>
     </main>
   );
 }
