@@ -126,16 +126,18 @@ export default function Home() {
         </button>
               )}
 
-      <div className="mt-4 text-sm">
-      <label className="flex items-center gap-2">
-      <input
-        type="checkbox"
-        checked={isPomodoro}
-        onChange={() => setIsPomodoro(!isPomodoro)}
+      {!isRunning && (
+        <div className="mt-4 text-sm">
+        <label className="flex items-center gap-2">
+        <input
+          type="checkbox"
+          checked={isPomodoro}
+          onChange={() => setIsPomodoro(!isPomodoro)}
         />
           Enable Real Pomodoro Mode (25/5)
-      </label>
-      </div>
+        </label>
+        </div>
+      )}
 
       {showEmbed && <EmbedBlock />}
 
