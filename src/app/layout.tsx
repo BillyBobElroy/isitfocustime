@@ -9,13 +9,20 @@ const spaceMono = Space_Mono({
 });
 
 export const metadata: Metadata = {
-  title: 'isitfocus.time',
-  description: 'A ridiculously simple focus timer.',
+  title: 'isitfocustime – Simple 25-Minute Focus Timer Online',
+  description: 'A minimalist, distraction-free focus timer online. Start a 25-minute session instantly. Simple pomodoro alternative for productivity, studying, and memes.',
   openGraph: {
-    title: 'isitfocus.time',
-    description: 'Start focusing right now.',
+    title: 'isitfocus.time – Focus Timer Online',
+    description: 'Ridiculously simple 25-minute focus timer. A minimalist pomodoro-style site with meme energy. No distractions, just focus.',
     images: ['/og-image.png'],
   },
+  keywords: [
+    'focus timer online',
+    '25 minute focus timer',
+    'simple pomodoro timer',
+    'minimalist productivity tools',
+    'focus time meme'
+  ],
   icons: {
     icon: '/favicon.ico',
   },
