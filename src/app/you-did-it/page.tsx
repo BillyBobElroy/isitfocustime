@@ -75,7 +75,7 @@ export default function YouDidIt() {
   "You earned 3.5 discipline points. Unspendable, but real.",
   "Time itself bent slightly in your favor.",
     ];
-    setScoreMessage(scores[Math.floor(Math.random() * scores.length)]);
+    setScoreMessage(focusScores[Math.floor(Math.random() * focusScores.length)]);
 
     try {
       // @ts-ignore
