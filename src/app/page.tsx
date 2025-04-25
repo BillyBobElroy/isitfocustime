@@ -90,10 +90,11 @@ export default function Home() {
   const startBreatheMode = () => {
     setIsBreathing(true);
     setShowEmbed(false);
+    setIsRunning(false); // extra safety
   
-    // Auto-exit after 30 seconds
     setTimeout(() => {
       setIsBreathing(false);
+      setQuote('Feeling calmer? Ready to focus?');
     }, 30000);
   };
 
@@ -137,7 +138,14 @@ export default function Home() {
         </button>
               )}
 
-      {isBreathing && <BreatheTimer />}
+      {!isRunning && !isBreathing && (
+        <button
+          onClick={startBreatheMode}
+          className="mt-4 px-5 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition"
+        >
+          Start 30-Second Breathe Reset
+        </button>
+      )}
 
       {!isRunning && (
         <div className="mt-4 text-sm">
