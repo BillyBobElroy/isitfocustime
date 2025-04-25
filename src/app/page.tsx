@@ -76,7 +76,7 @@ export default function Home() {
 
   return (
     <main className="flex flex-col items-center justify-center min-h-screen bg-zinc-900 text-white px-4">
-      <h1 className={`${spaceMono.className} text-4xl font-bold mb-4`}>isitfocus.time</h1>
+      <h1 className={`${spaceMono.className} text-4xl font-bold mb-4`}>isitfocustime.com</h1>
       <p className="text-xl mb-2 text-center">{quote}</p>
       {!isRunning && <p className="text-sm text-zinc-400 mb-6">{getTimeSnark()}</p>}
 
@@ -107,6 +107,10 @@ export default function Home() {
           Start Focus Session
         </button>
               )}
+
+<pre className="bg-zinc-900 text-white p-2 rounded text-sm overflow-x-auto">
+  &lt;iframe src=&quot;https://isitfocus.time/embed&quot; width=&quot;100%&quot; height=&quot;140&quot; style=&quot;border:none;&quot;&gt;&lt;/iframe&gt;
+</pre>
 
       <div className="my-8 flex justify-center">
         <ins
