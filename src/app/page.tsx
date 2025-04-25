@@ -100,85 +100,90 @@ export default function Home() {
 
   return (
     <main className="flex flex-col items-center justify-center min-h-screen bg-zinc-900 text-white px-4">
-      <h1 className={`${spaceMono.className} text-4xl font-bold mb-4`}>isitfocustime.com</h1>
-      <p className="text-xl mb-2 text-center">{quote}</p>
-      {!isRunning && <p className="text-sm text-zinc-400 mb-6">{getTimeSnark()}</p>}
-
-      {!isRunning && (
-        <div className="mb-6 text-center flex flex-col items-center justify-center">
-          <label className="block mb-2 text-sm font-medium">Choose your focus time (minutes):</label>
-          <input
-            type="number"
-            min={1}
-            max={120}
-            value={timeInput}
-            onChange={(e) => setTimeInput(Number(e.target.value))}
-            className="w-24 px-3 py-2 rounded bg-zinc-800 border border-zinc-700 text-white text-center"
-          />
-          {timeInput >= 60 && (
-            <p className="text-yellow-400 text-sm mt-2">💀 That's a long one. Don’t forget to blink.</p>
-          )}
-        </div>
-      )}
-
-      <div className="text-6xl font-mono mb-8">{formatTime(secondsLeft)}</div>
-
-      {isPomodoro && (
-        <p className="text-sm text-zinc-400 mb-2">
-          {isBreak ? 'Break Time' : 'Focus Time'}
-        </p>
-              )}    
-
-      {!isRunning && (
-        <button
-          onClick={startTimer}
-          className="px-6 py-3 bg-green-500 text-white text-lg rounded-lg hover:bg-green-600 transition"
-        >
-          Start Focus Session
-        </button>
+      {isBreathing ? (
+        <BreatheTimer />
+      ) : (
+        <>
+          <h1 className={`${spaceMono.className} text-4xl font-bold mb-4`}>isitfocustime.com</h1>
+          <p className="text-xl mb-2 text-center">{quote}</p>
+          {!isRunning && <p className="text-sm text-zinc-400 mb-6">{getTimeSnark()}</p>}
+  
+          {!isRunning && (
+            <div className="mb-6 text-center flex flex-col items-center justify-center">
+              <label className="block mb-2 text-sm font-medium">Choose your focus time (minutes):</label>
+              <input
+                type="number"
+                min={1}
+                max={120}
+                value={timeInput}
+                onChange={(e) => setTimeInput(Number(e.target.value))}
+                className="w-24 px-3 py-2 rounded bg-zinc-800 border border-zinc-700 text-white text-center"
+              />
+              {timeInput >= 60 && (
+                <p className="text-yellow-400 text-sm mt-2">💀 That's a long one. Don’t forget to blink.</p>
               )}
-
-      {!isRunning && !isBreathing && (
-        <button
-          onClick={startBreatheMode}
-          className="mt-4 px-5 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition"
-        >
-          Start 30-Second Breathe Reset
-        </button>
+            </div>
+          )}
+  
+          <div className="text-6xl font-mono mb-8">{formatTime(secondsLeft)}</div>
+  
+          {isPomodoro && (
+            <p className="text-sm text-zinc-400 mb-2">
+              {isBreak ? 'Break Time' : 'Focus Time'}
+            </p>
+          )}
+  
+          {!isRunning && (
+            <button
+              onClick={startTimer}
+              className="px-6 py-3 bg-green-500 text-white text-lg rounded-lg hover:bg-green-600 transition"
+            >
+              Start Focus Session
+            </button>
+          )}
+  
+          {!isRunning && !isBreathing && (
+            <button
+              onClick={startBreatheMode}
+              className="mt-4 px-5 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition"
+            >
+              Start 30-Second Breathe Reset
+            </button>
+          )}
+  
+          {!isRunning && (
+            <div className="mt-4 text-sm">
+              <label className="flex items-center gap-2">
+                <input
+                  type="checkbox"
+                  checked={isPomodoro}
+                  onChange={() => setIsPomodoro(!isPomodoro)}
+                />
+                Enable Real Pomodoro Mode (25/5)
+              </label>
+            </div>
+          )}
+  
+          {showEmbed && <EmbedBlock />}
+  
+          <div className="my-8 flex justify-center">
+            <ins
+              className="adsbygoogle"
+              style={{ display: 'inline-block', width: '728px', height: '90px' }}
+              data-ad-client="ca-pub-4813693653154178"
+              data-ad-slot="8997853730"
+              data-ad-format="auto"
+              data-full-width-responsive="true"
+            />
+            <ins
+              className="adsbygoogle inline-block md:hidden"
+              style={{ width: '300px', height: '250px' }}
+              data-ad-client="ca-pub-4813693653154178"
+              data-ad-slot="8997853730"
+            />
+          </div>
+        </>
       )}
-
-      {!isRunning && (
-        <div className="mt-4 text-sm">
-        <label className="flex items-center gap-2">
-        <input
-          type="checkbox"
-          checked={isPomodoro}
-          onChange={() => setIsPomodoro(!isPomodoro)}
-        />
-          Enable Real Pomodoro Mode (25/5)
-        </label>
-        </div>
-      )}
-
-      {showEmbed && <EmbedBlock />}
-
-      <div className="my-8 flex justify-center">
-        <ins
-          className="adsbygoogle"
-          style={{ display: 'inline-block', width: '728px', height: '90px' }}
-          data-ad-client="ca-pub-4813693653154178"
-          data-ad-slot="8997853730"
-          data-ad-format="auto"
-          data-full-width-responsive="true"
-        />
-
-        <ins
-          className="adsbygoogle inline-block md:hidden"
-          style={{ width: '300px', height: '250px' }}
-          data-ad-client="ca-pub-4813693653154178"
-          data-ad-slot="8997853730"
-        />
-      </div>
     </main>
   );
-}
+}  
