@@ -51,7 +51,7 @@ export default function BreatheTimer() {
           clearInterval(messageInterval);
           if (chime) chime.play(); // Play sound here
         }
-        return prev - 1;
+        return prev > 0 ? prev - 1 : 0;
       });
     }, 1000);
 

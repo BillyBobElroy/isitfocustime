@@ -22,6 +22,7 @@ export default function Home() {
   const [isPomodoro, setIsPomodoro] = useState(false);
   const [isBreak, setIsBreak] = useState(false);
   const [isBreathing, setIsBreathing] = useState(false);
+  const alarm = typeof window !== 'undefined' ? new Audio('/sounds/alarm.mp3') : null;
 
   useEffect(() => {
     setSecondsLeft(timeInput * 60);
@@ -31,14 +32,22 @@ export default function Home() {
     let timer: NodeJS.Timeout;
   
     if (isRunning && secondsLeft > 0) {
-      timer = setInterval(() => setSecondsLeft((prev) => prev - 1), 1000);
+      timer = setInterval(() => {
+        setSecondsLeft((prev) => prev - 1);
+      }, 1000);
     } else if (isRunning && secondsLeft === 0) {
+      if (alarm) {
+        alarm.play();
+      }
+  
       if (isPomodoro) {
         const nextPhase = isBreak ? 'focus' : 'break';
         setIsBreak(!isBreak);
         setSecondsLeft(nextPhase === 'focus' ? timeInput * 60 : 5 * 60);
       } else {
-        router.push(`/you-did-it`);
+        setTimeout(() => {
+          router.push(`/you-did-it`);
+        }, 10000); // Wait 10s before redirect
       }
     }
   
