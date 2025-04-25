@@ -7,6 +7,7 @@ import { useWindowSize } from 'react-use';
 
 export default function YouDidIt() {
   const [quote, setQuote] = useState('');
+  const [scoreMessage, setScoreMessage] = useState('');
   const { width, height } = useWindowSize();
   const [hasMounted, setHasMounted] = useState(false);
 
@@ -63,6 +64,19 @@ export default function YouDidIt() {
     ];
     setQuote(quotes[Math.floor(Math.random() * quotes.length)]);
 
+    const focusScores = [
+  "You’re 2 levels closer to Monk Mode.",
+  "Neuroplasticity = upgraded.",
+  "Focus Multiplier: x1.7. Try again?",
+  "You just speedran your to-do list.",
+  "You're vibrating at a higher frequency now.",
+  "Caffeine effectiveness +12%.",
+  "A productivity aura now surrounds you.",
+  "You earned 3.5 discipline points. Unspendable, but real.",
+  "Time itself bent slightly in your favor.",
+    ];
+    setScoreMessage(scores[Math.floor(Math.random() * scores.length)]);
+
     try {
       // @ts-ignore
       (window.adsbygoogle = window.adsbygoogle || []).push({});
@@ -80,6 +94,8 @@ export default function YouDidIt() {
       <p className="text-lg mt-2 text-green-300 italic">
         You’re {Math.floor(Math.random() * 51 + 50)}% more focused than yesterday’s version of you.
       </p>
+
+      <p className="text-lg mt-2 text-green-300 italic">{scoreMessage}</p>
 
       <Link href="/">
         <button className="px-6 py-3 bg-white text-green-900 text-lg font-semibold rounded-lg hover:bg-gray-100 transition">
