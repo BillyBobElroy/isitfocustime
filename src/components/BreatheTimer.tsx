@@ -27,7 +27,7 @@ const calmingMessages = [
   "Nothing to fix. Just to breathe.",
   "You are not your thoughts.",
   "Ease in. Ease out.",
-  "Stillness is strength."
+  "Stillness is strength.",
 ];
 
 export default function BreatheTimer() {
@@ -36,46 +36,42 @@ export default function BreatheTimer() {
   const [scale, setScale] = useState(1);
 
   useEffect(() => {
-    // Pick a new message every 10 seconds
     const messageInterval = setInterval(() => {
       const random = Math.floor(Math.random() * calmingMessages.length);
       setMessage(calmingMessages[random]);
     }, 10000);
 
-    // Initialize message
     setMessage(calmingMessages[Math.floor(Math.random() * calmingMessages.length)]);
 
-    // Countdown timer
-    const timer = setInterval(() => {
+    const countdown = setInterval(() => {
       setSeconds((prev) => {
         if (prev <= 1) {
-          clearInterval(timer);
+          clearInterval(countdown);
           clearInterval(messageInterval);
         }
         return prev - 1;
       });
     }, 1000);
 
-    // Bubble animation pulsing every 3s
-    const bubble = setInterval(() => {
+    const pulse = setInterval(() => {
       setScale((prev) => (prev === 1 ? 1.3 : 1));
     }, 3000);
 
     return () => {
-      clearInterval(timer);
+      clearInterval(countdown);
       clearInterval(messageInterval);
-      clearInterval(bubble);
+      clearInterval(pulse);
     };
   }, []);
 
   return (
-    <main className="flex flex-col items-center justify-center min-h-screen bg-blue-950 text-white text-center p-6">
+    <div className="flex flex-col items-center justify-center mt-10 mb-6">
       <div
         className="w-40 h-40 rounded-full bg-blue-400 transition-transform duration-3000 ease-in-out"
         style={{ transform: `scale(${scale})` }}
-      ></div>
+      />
       <p className="text-6xl font-mono mt-6">{seconds > 0 ? seconds : 'Done'}</p>
       <p className="text-xl mt-4 italic max-w-md text-blue-100">{message}</p>
-    </main>
+    </div>
   );
 }
