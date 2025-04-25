@@ -36,7 +36,7 @@ export default function YouDidIt() {
     <main className="flex flex-col items-center justify-center min-h-screen bg-green-900 text-white text-center px-4">
       {hasMounted && <Confetti width={width} height={height} />}
       <h1 className="text-5xl font-bold mb-6">🎉 You Did It!</h1>
-      <p className="text-2xl mb-6">{quote}</p>
+      <Suspense fallback={<div className="text-2xl mb-6">{quote}</div>}></Suspense>
 
       <div className="my-8 flex justify-center">
         <ins
