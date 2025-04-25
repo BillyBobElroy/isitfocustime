@@ -18,6 +18,9 @@ export default function Home() {
   const [isRunning, setIsRunning] = useState(false);
   const [quote, setQuote] = useState('');
   const [showEmbed, setShowEmbed] = useState(true);
+  const [isPomodoro, setIsPomodoro] = useState(false);
+  const [isBreak, setIsBreak] = useState(false);
+
 
   useEffect(() => {
     setSecondsLeft(timeInput * 60);
@@ -25,15 +28,21 @@ export default function Home() {
 
   useEffect(() => {
     let timer: NodeJS.Timeout;
+  
     if (isRunning && secondsLeft > 0) {
-      timer = setInterval(() => {
-        setSecondsLeft((prev) => prev - 1);
-      }, 1000);
+      timer = setInterval(() => setSecondsLeft((prev) => prev - 1), 1000);
     } else if (isRunning && secondsLeft === 0) {
-      router.push('/you-did-it');
+      if (isPomodoro) {
+        const nextPhase = isBreak ? 'focus' : 'break';
+        setIsBreak(!isBreak);
+        setSecondsLeft(nextPhase === 'focus' ? timeInput * 60 : 5 * 60);
+      } else {
+        router.push(`/you-did-it`);
+      }
     }
+  
     return () => clearInterval(timer);
-  }, [isRunning, secondsLeft]);
+  }, [isRunning, secondsLeft, isPomodoro, isBreak]);
 
   useEffect(() => {
     try {
@@ -102,6 +111,12 @@ export default function Home() {
 
       <div className="text-6xl font-mono mb-8">{formatTime(secondsLeft)}</div>
 
+      {isPomodoro && (
+        <p className="text-sm text-zinc-400 mb-2">
+          {isBreak ? 'Break Time' : 'Focus Time'}
+        </p>
+              )}    
+
       {!isRunning && (
         <button
           onClick={startTimer}
@@ -110,6 +125,17 @@ export default function Home() {
           Start Focus Session
         </button>
               )}
+
+      <div className="mt-4 text-sm">
+      <label className="flex items-center gap-2">
+      <input
+        type="checkbox"
+        checked={isPomodoro}
+        onChange={() => setIsPomodoro(!isPomodoro)}
+        />
+          Enable Real Pomodoro Mode (25/5)
+      </label>
+      </div>
 
       {showEmbed && <EmbedBlock />}
 
