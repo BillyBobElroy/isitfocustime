@@ -115,10 +115,10 @@ export default function Home() {
         <>
           <h1 className={`${spaceMono.className} text-4xl font-bold mb-4`}>isitfocustime.com</h1>
           <p className="text-xl mb-2 text-center">{quote}</p>
-          {!isRunning && <p className="text-sm text-zinc-400 mb-6">{getTimeSnark()}</p>}
+          {!isRunning && <p className="text-sm text-zinc-400 mb-4">{getTimeSnark()}</p>}
   
           {!isRunning && (
-            <div className="mb-6 text-center flex flex-col items-center justify-center">
+            <div className="mb-4 text-center flex flex-col items-center justify-center">
               <label className="block mb-2 text-sm font-medium">Choose your focus time (minutes):</label>
               <input
                 type="number"
@@ -129,18 +129,18 @@ export default function Home() {
                 className="w-24 px-3 py-2 rounded bg-zinc-800 border border-zinc-700 text-white text-center"
               />
               {timeInput >= 60 && (
-                <p className="text-yellow-400 text-sm mt-2">💀 That's a long one. Don’t forget to blink.</p>
+                <p className="text-yellow-400 text-sm mt-4">💀 That's a long one. Don’t forget to blink.</p>
               )}
             </div>
           )}
 
           {isPomodoro && (
-            <p className="text-sm text-zinc-400 mb-2">
+            <p className="text-sm text-zinc-400 mb-4">
               {isBreak ? 'Break Time' : 'Focus Time'}
             </p>
           )}
   
-          <div className="text-6xl font-mono mb-8">{formatTime(secondsLeft)}</div>
+          <div className="text-6xl font-mono mb-4">{formatTime(secondsLeft)}</div>
   
           {!isRunning && (
             <button
