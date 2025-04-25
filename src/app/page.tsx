@@ -89,7 +89,7 @@ export default function Home() {
 
   const startBreatheMode = () => {
     setIsBreathing(true);
-    setShowEmbed(false);
+    setShowEmbed(true);
     setIsRunning(false); // extra safety
   
     setTimeout(() => {
