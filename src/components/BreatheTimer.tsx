@@ -37,32 +37,38 @@ export default function BreatheTimer() {
   const chime = typeof window !== 'undefined' ? new Audio('/sounds/chime.mp3') : null;
 
   useEffect(() => {
+    if (chime) {
+      chime.currentTime = 0;
+      chime.volume = 0.6;
+      chime.play();
+    }
+  
     const messageInterval = setInterval(() => {
       const random = Math.floor(Math.random() * calmingMessages.length);
       setMessage(calmingMessages[random]);
     }, 10000);
-
+  
     setMessage(calmingMessages[Math.floor(Math.random() * calmingMessages.length)]);
-
+  
     const countdown = setInterval(() => {
       setSeconds((prev) => {
         if (prev <= 1) {
           clearInterval(countdown);
           clearInterval(messageInterval);
-          if (chime) chime.play(); // Play sound here
         }
         return prev > 0 ? prev - 1 : 0;
       });
     }, 1000);
-
+  
     const pulse = setInterval(() => {
       setScale((prev) => (prev === 1 ? 1.3 : 1));
     }, 3000);
-
+  
     return () => {
       clearInterval(countdown);
       clearInterval(messageInterval);
       clearInterval(pulse);
+      if (chime) chime.pause();
     };
   }, []);
 
