@@ -4,18 +4,21 @@ import Link from 'next/link';
 import { useEffect, useState } from 'react';
 import Confetti from 'react-confetti';
 import { useWindowSize } from 'react-use';
+import { useSearchParams } from 'next/navigation';
 
 export default function YouDidIt() {
   const [quote, setQuote] = useState('');
   const { width, height } = useWindowSize();
   const [hasMounted, setHasMounted] = useState(false);
+  const searchParams = useSearchParams();
+  const minutes = searchParams.get('minutes') || '25';
 
   useEffect(() => {
     setHasMounted(true);
     const quotes = [
       "You did it! You focused like a beast. 💪",
       "Legend status achieved. Now take a break.",
-      "That was pure discipline. 👑",
+      "That was ${minutes} minutes of pure discipline. 👑",
       "Look at you go! Productivity unlocked.",
       "You crushed it. No distractions, just results."
     ];
