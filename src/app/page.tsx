@@ -133,14 +133,14 @@ export default function Home() {
               )}
             </div>
           )}
-  
-          <div className="text-6xl font-mono mb-8">{formatTime(secondsLeft)}</div>
-  
+
           {isPomodoro && (
             <p className="text-sm text-zinc-400 mb-2">
               {isBreak ? 'Break Time' : 'Focus Time'}
             </p>
           )}
+  
+          <div className="text-6xl font-mono mb-8">{formatTime(secondsLeft)}</div>
   
           {!isRunning && (
             <button
