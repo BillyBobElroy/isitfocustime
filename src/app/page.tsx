@@ -76,7 +76,7 @@ export default function Home() {
 
   return (
     <main className="flex flex-col items-center justify-center min-h-screen bg-zinc-900 text-white px-4">
-      <h1 className={`${spaceMono.className} text-4xl font-bold mb-4`}>isitfocustime</h1>
+      <h1 className={`${spaceMono.className} text-4xl font-bold mb-4`}>isitfocustime.com</h1>
       <p className="text-xl mb-2 text-center">{quote}</p>
       {!isRunning && <p className="text-sm text-zinc-400 mb-6">{getTimeSnark()}</p>}
 
