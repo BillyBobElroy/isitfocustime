@@ -34,6 +34,7 @@ export default function BreatheTimer() {
   const [seconds, setSeconds] = useState(30);
   const [message, setMessage] = useState('');
   const [scale, setScale] = useState(1);
+  const chime = typeof window !== 'undefined' ? new Audio('/sounds/chime.mp3') : null;
 
   useEffect(() => {
     const messageInterval = setInterval(() => {
@@ -48,6 +49,7 @@ export default function BreatheTimer() {
         if (prev <= 1) {
           clearInterval(countdown);
           clearInterval(messageInterval);
+          if (chime) chime.play(); // Play sound here
         }
         return prev - 1;
       });
