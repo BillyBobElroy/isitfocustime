@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { Space_Mono } from 'next/font/google';
 import { EmbedBlock } from '@/components/EmbedBlock';
+import BreatheTimer from '@/components/BreatheTimer';
 
 const spaceMono = Space_Mono({
   weight: ['400', '700'],
@@ -20,7 +21,7 @@ export default function Home() {
   const [showEmbed, setShowEmbed] = useState(true);
   const [isPomodoro, setIsPomodoro] = useState(false);
   const [isBreak, setIsBreak] = useState(false);
-
+  const [isBreathing, setIsBreathing] = useState(false);
 
   useEffect(() => {
     setSecondsLeft(timeInput * 60);
@@ -86,6 +87,16 @@ export default function Home() {
     return `${String(mins).padStart(2, '0')}:${String(secsRemain).padStart(2, '0')}`;
   };
 
+  const startBreatheMode = () => {
+    setIsBreathing(true);
+    setShowEmbed(false);
+  
+    // Auto-exit after 30 seconds
+    setTimeout(() => {
+      setIsBreathing(false);
+    }, 30000);
+  };
+
   return (
     <main className="flex flex-col items-center justify-center min-h-screen bg-zinc-900 text-white px-4">
       <h1 className={`${spaceMono.className} text-4xl font-bold mb-4`}>isitfocustime.com</h1>
@@ -125,6 +136,8 @@ export default function Home() {
           Start Focus Session
         </button>
               )}
+
+      {isBreathing && <BreatheTimer />}
 
       {!isRunning && (
         <div className="mt-4 text-sm">
