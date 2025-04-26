@@ -23,7 +23,9 @@ export const metadata: Metadata = {
     '25 minute focus timer',
     'simple pomodoro timer',
     'minimalist productivity tools',
-    'focus time meme'
+    'focus time meme',
+    'daily gratitude journal',
+    'mood tracker',
   ],
   icons: {
     icon: '/favicon.ico',
