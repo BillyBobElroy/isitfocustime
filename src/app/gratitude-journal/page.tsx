@@ -4,25 +4,25 @@ import { useState, useEffect } from 'react';
 import Footer from '@/components/Footer';
 
 export default function GratitudeJournal() {
-  const [gratitudeEntry, setGratitudeEntry] = useState('');
-  const [savedEntries, setSavedEntries] = useState<{ date: string; entry: string }[]>([]);
+  const [gratitudes, setGratitudes] = useState(['', '', '']);
+  const [savedEntries, setSavedEntries] = useState<{ date: string; entries: string[] }[]>([]);
   const [selectedDate, setSelectedDate] = useState('');
   const [showPastEntries, setShowPastEntries] = useState(false);
 
   useEffect(() => {
-    const storedEntries = localStorage.getItem('gratitude-entries');
-    if (storedEntries) {
-      setSavedEntries(JSON.parse(storedEntries));
+    const stored = localStorage.getItem('gratitude-entries');
+    if (stored) {
+      setSavedEntries(JSON.parse(stored));
     }
   }, []);
 
-  const saveEntry = () => {
-    if (gratitudeEntry.trim() === '') return;
+  const saveEntries = () => {
+    if (gratitudes.every((g) => g.trim() === '')) return;
     const today = new Date().toISOString().split('T')[0];
-    const updatedEntries = [...savedEntries, { date: today, entry: gratitudeEntry }];
-    setSavedEntries(updatedEntries);
-    localStorage.setItem('gratitude-entries', JSON.stringify(updatedEntries));
-    setGratitudeEntry('');
+    const updated = [...savedEntries, { date: today, entries: gratitudes }];
+    setSavedEntries(updated);
+    localStorage.setItem('gratitude-entries', JSON.stringify(updated));
+    setGratitudes(['', '', '']);
   };
 
   const clearEntries = () => {
@@ -38,21 +38,28 @@ export default function GratitudeJournal() {
     <div className="flex flex-col items-center justify-center min-h-screen bg-zinc-900 text-white px-4">
       <div className="max-w-md w-full">
         <h1 className="text-3xl font-bold mb-6 text-center">isitfocustime.com</h1>
-        <p className="flex flex-col items-center justify-center text-4xl font-bold mb-4">Gratitude Journal</p>
+        <p className="text-4xl font-bold mb-6 text-center">Gratitude Journal</p>
 
-        <textarea
-          className="w-full p-4 rounded-lg bg-zinc-800 text-white mb-4"
-          rows={5}
-          placeholder="Write what you're grateful for today..."
-          value={gratitudeEntry}
-          onChange={(e) => setGratitudeEntry(e.target.value)}
-        />
+        {gratitudes.map((g, idx) => (
+          <input
+            key={idx}
+            type="text"
+            className="w-full p-3 mb-3 rounded-lg bg-zinc-800 text-white"
+            placeholder={`Gratitude ${idx + 1}`}
+            value={g}
+            onChange={(e) => {
+              const updated = [...gratitudes];
+              updated[idx] = e.target.value;
+              setGratitudes(updated);
+            }}
+          />
+        ))}
 
         <button
           className="w-full bg-green-500 hover:bg-green-600 text-white py-3 rounded-lg mb-4"
-          onClick={saveEntry}
+          onClick={saveEntries}
         >
-          Save Gratitude Entry
+          Save Gratitude
         </button>
 
         <button
@@ -82,11 +89,15 @@ export default function GratitudeJournal() {
         {showPastEntries && filteredEntries.length > 0 && (
           <div className="bg-zinc-800 p-4 rounded-lg">
             <h2 className="text-xl font-semibold mb-4 text-center">Past Gratitudes</h2>
-            <ul className="space-y-2">
-              {filteredEntries.map((item, index) => (
-                <li key={index} className="bg-zinc-700 p-3 rounded text-sm">
-                  <div className="text-xs text-zinc-400 mb-1">{item.date}</div>
-                  {item.entry}
+            <ul className="space-y-4">
+              {filteredEntries.map((item, idx) => (
+                <li key={idx} className="bg-zinc-700 p-4 rounded text-sm">
+                  <div className="text-xs text-zinc-400 mb-2">{item.date}</div>
+                  <ul className="list-disc pl-5">
+                    {item.entries.map((entry, i) => (
+                      <li key={i}>{entry}</li>
+                    ))}
+                  </ul>
                 </li>
               ))}
             </ul>
@@ -97,6 +108,7 @@ export default function GratitudeJournal() {
           <p className="text-center text-zinc-400">No entries for this date.</p>
         )}
       </div>
+      <Footer />
     </div>
   );
 }
