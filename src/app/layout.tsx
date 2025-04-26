@@ -2,6 +2,7 @@ import './globals.css';
 import { Space_Mono } from 'next/font/google';
 import type { Metadata } from 'next';
 import Footer from '@/components/Footer';
+import Navbar from '@/components/Navbar';
 
 const spaceMono = Space_Mono({
   weight: ['400', '700'],
@@ -31,9 +32,12 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
+    <>
+    <Navbar />
     <html lang="en">
       <body className={spaceMono.className}>{children}</body>
-      <Footer />
     </html>
+  <Footer />
+  </>
   );
 }
