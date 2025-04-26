@@ -108,7 +108,6 @@ export default function GratitudeJournal() {
           <p className="text-center text-zinc-400">No entries for this date.</p>
         )}
       </div>
-      <Footer />
     </div>
   );
 }
