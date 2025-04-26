@@ -45,7 +45,7 @@ export default function GratitudeJournal() {
             key={idx}
             type="text"
             className="w-full p-3 mb-3 rounded-lg bg-zinc-800 text-white"
-            placeholder={`Gratitude ${idx + 1}`}
+            placeholder={`I'm grateful for... ${idx + 1}`}
             value={g}
             onChange={(e) => {
               const updated = [...gratitudes];

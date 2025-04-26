@@ -14,7 +14,7 @@ export const metadata: Metadata = {
   title: 'isitfocustime – Simple 25-Minute Focus Timer Online',
   description: 'A minimalist, distraction-free focus timer online. Start a 25-minute session instantly. Simple pomodoro alternative for productivity, studying, and memes.',
   openGraph: {
-    title: 'isitfocus.time – Focus Timer Online',
+    title: 'isitfocustime – Focus Timer Online',
     description: 'Ridiculously simple 25-minute focus timer. A minimalist pomodoro-style site with meme energy. No distractions, just focus.',
     images: ['/og-image.png'],
   },
