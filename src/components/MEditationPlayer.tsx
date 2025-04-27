@@ -1,46 +1,59 @@
 'use client';
 
 import { useState, useEffect, useRef } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
 
-export function MeditationPlayer({ onMeditationEnd }: { onMeditationEnd?: () => void }) {
-  const [isPlaying, setIsPlaying] = useState(false);
-  const [timeLeft, setTimeLeft] = useState(5 * 60); // 5 minutes
-  const audioRef = useRef<HTMLAudioElement | null>(null);
+export function MeditationPlayer() {
+  const [isMeditating, setIsMeditating] = useState(false);
+  const [timeLeft, setTimeLeft] = useState(5 * 60);
+  const [colorIndex, setColorIndex] = useState(0);
+
   const intervalRef = useRef<NodeJS.Timeout | null>(null);
+  const audioRef = useRef<HTMLAudioElement | null>(null);
+  const colors = ['#6EE7B7', '#93C5FD', '#FBCFE8', '#FDE68A', '#A5B4FC']; // Pastel colors
 
   useEffect(() => {
-    if (isPlaying) {
+    if (isMeditating) {
+      // Start meditation timer
       intervalRef.current = setInterval(() => {
         setTimeLeft((prev) => {
           if (prev <= 1) {
             clearInterval(intervalRef.current!);
-            setIsPlaying(false);
-            onMeditationEnd?.(); // Optional callback
+            stopMeditation();
             return 0;
           }
           return prev - 1;
         });
       }, 1000);
-    } else if (intervalRef.current) {
-      clearInterval(intervalRef.current);
-    }
 
-    return () => {
-      if (intervalRef.current) {
-        clearInterval(intervalRef.current);
+      // Start color cycle
+      const colorTimer = setInterval(() => {
+        setColorIndex((prev) => (prev + 1) % colors.length);
+      }, 5000);
+
+      // Play audio
+      if (audioRef.current) {
+        audioRef.current.currentTime = 0;
+        audioRef.current.play();
       }
-    };
-  }, [isPlaying, onMeditationEnd]);
 
-  const handlePlayPause = () => {
-    if (!audioRef.current) return;
+      return () => {
+        clearInterval(intervalRef.current!);
+        clearInterval(colorTimer);
+      };
+    }
+  }, [isMeditating]);
 
-    if (isPlaying) {
+  const handleStart = () => {
+    setIsMeditating(true);
+    setTimeLeft(5 * 60); // Reset 5 minutes
+  };
+
+  const stopMeditation = () => {
+    setIsMeditating(false);
+    if (audioRef.current) {
       audioRef.current.pause();
-      setIsPlaying(false);
-    } else {
-      audioRef.current.play();
-      setIsPlaying(true);
+      audioRef.current.currentTime = 0;
     }
   };
 
@@ -51,28 +64,45 @@ export function MeditationPlayer({ onMeditationEnd }: { onMeditationEnd?: () => 
   };
 
   return (
-    <div className="bg-zinc-800 rounded-lg p-6 flex flex-col items-center text-center space-y-4 w-full">
-      <h2 className="text-xl font-bold">🧘‍♂️ 5-Minute Meditation</h2>
+    <div className="w-full flex flex-col items-center justify-center">
+      <audio ref={audioRef} src="/sounds/meditation.mp3" preload="auto" />
 
-      <button
-        onClick={handlePlayPause}
-        className="bg-green-500 hover:bg-green-600 text-white px-6 py-2 rounded-lg"
-      >
-        {isPlaying ? 'Pause Meditation' : 'Play Meditation'}
-      </button>
+      {!isMeditating && (
+        <button
+          onClick={handleStart}
+          className="bg-green-500 hover:bg-green-600 text-white px-6 py-3 rounded-lg"
+        >
+          Start 5-Minute Meditation
+        </button>
+      )}
 
-      <p className="text-sm text-zinc-400">{formatTime(timeLeft)}</p>
+      <AnimatePresence>
+        {isMeditating && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1, backgroundColor: colors[colorIndex] }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 1 }}
+            className="fixed inset-0 flex flex-col items-center justify-center z-50"
+          >
+            {/* Breathing Circle */}
+            <motion.div
+              animate={{
+                scale: [1, 1.5, 1],
+              }}
+              transition={{
+                duration: 8,
+                repeat: Infinity,
+                ease: 'easeInOut',
+              }}
+              className="w-48 h-48 bg-white rounded-full opacity-20"
+            />
 
-      {/* Hidden audio element */}
-      <audio
-        ref={audioRef}
-        src="/sounds/meditation.mp3"
-        onEnded={() => {
-          setIsPlaying(false);
-          setTimeLeft(0);
-          onMeditationEnd?.();
-        }}
-      />
+            {/* Timer */}
+            <p className="mt-8 text-2xl font-bold text-white">{formatTime(timeLeft)}</p>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </div>
   );
 }
