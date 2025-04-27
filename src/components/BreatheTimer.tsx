@@ -78,7 +78,7 @@ export default function BreatheTimer() {
         className="w-40 h-40 rounded-full bg-blue-400 transition-transform duration-3000 ease-in-out"
         style={{ transform: `scale(${scale})` }}
       />
-      <p className="text-6xl font-mono mt-6">{seconds > 0 ? seconds : 'Done'}</p>
+      <p className="text-6xl font-nunito mt-6">{seconds > 0 ? seconds : 'Done'}</p>
       <p className="text-xl mt-4 italic max-w-md text-blue-100">{message}</p>
     </div>
   );

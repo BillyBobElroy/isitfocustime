@@ -50,21 +50,21 @@ export default function MoodTrackerPage() {
 
   return (
     <div className="flex flex-col items-center justify-center min-h-screen bg-zinc-900 px-6 py-12 text-white">
-      <h1 className="text-3xl font-bold mb-6 font-mono">isitfocustime.com</h1>
+      <h1 className="text-3xl font-bold mb-6 font-nunito">isitfocustime.com</h1>
       <p className="flex flex-col items-center justify-center text-4xl font-bold mb-4">Mood tracker</p>
 
       <input
         value={mood}
         onChange={(e) => setMood(e.target.value)}
         placeholder="How are you feeling? (e.g., 😊, sad, excited)"
-        className="bg-zinc-800 text-white rounded-lg px-4 py-3 mb-4 w-full max-w-md font-mono placeholder-zinc-500"
+        className="bg-zinc-800 text-white rounded-lg px-4 py-3 mb-4 w-full max-w-md font-nunito placeholder-zinc-500"
       />
 
       <input
         value={note}
         onChange={(e) => setNote(e.target.value)}
         placeholder="Why do you feel this way? (optional)"
-        className="bg-zinc-800 text-white rounded-lg px-4 py-3 mb-6 w-full max-w-md font-mono placeholder-zinc-500"
+        className="bg-zinc-800 text-white rounded-lg px-4 py-3 mb-6 w-full max-w-md font-nunito placeholder-zinc-500"
       />
 
       {/* 🎨 Color Palette Picker */}
@@ -83,7 +83,7 @@ export default function MoodTrackerPage() {
 
       <button
         onClick={handleSave}
-        className="bg-green-500 hover:bg-green-600 text-white rounded-lg px-6 py-3 font-mono transition mb-4"
+        className="bg-green-500 hover:bg-green-600 text-white rounded-lg px-6 py-3 font-nunito transition mb-4"
       >
         Save Mood
       </button>
@@ -95,14 +95,14 @@ export default function MoodTrackerPage() {
       <div className="flex space-x-4 mt-8">
         <button
           onClick={() => setShowPast(!showPast)}
-          className="bg-blue-500 hover:bg-blue-600 px-4 py-2 rounded-lg font-mono"
+          className="bg-blue-500 hover:bg-blue-600 px-4 py-2 rounded-lg font-nunito"
         >
           {showPast ? 'Hide Past Moods' : 'View Past Moods'}
         </button>
 
         <button
           onClick={handleClear}
-          className="bg-red-500 hover:bg-red-600 px-4 py-2 rounded-lg font-mono"
+          className="bg-red-500 hover:bg-red-600 px-4 py-2 rounded-lg font-nunito"
         >
           Clear Saved Moods
         </button>
