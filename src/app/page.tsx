@@ -5,6 +5,7 @@ import { useRouter } from 'next/navigation';
 import { Space_Mono } from 'next/font/google';
 import { EmbedBlock } from '@/components/EmbedBlock';
 import BreatheTimer from '@/components/BreatheTimer';
+import { MeditationPlayer } from '@/components/MEditationPlayer';
 
 const spaceMono = Space_Mono({
   weight: ['400', '700'],
@@ -172,6 +173,8 @@ export default function Home() {
               </label>
             </div>
           )}
+
+          <MeditationPlayer />
   
           {showEmbed && <EmbedBlock />}
   
