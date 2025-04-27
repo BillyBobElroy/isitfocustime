@@ -5,11 +5,6 @@ import { TOC } from '@/components/TOC';
 import { MDXRemote } from 'next-mdx-remote/rsc';
 import rehypeSlug from 'rehype-slug';
 
-type PageProps<T = {}> = {
-  params: T;
-  searchParams?: Record<string, string | string[] | undefined>;
-};
-
 function formatDate(dateString: string) {
   const date = new Date(dateString);
   const options: Intl.DateTimeFormatOptions = { year: 'numeric', month: 'long', day: 'numeric' };
@@ -32,10 +27,11 @@ export async function generateStaticParams() {
 }
 
 // ✅ Make BlogPostPage async
-export default async function BlogPostPage({ params }: { params: { slug: string } }) {
-  const slug = decodeURIComponent(params.slug);
+export default async function BlogPostPage(props: any) {
+  const { params } = await props; // ✅ properly await props at top level
 
-  const post = getPostBySlug(slug);
+  const slug = decodeURIComponent(params.slug);
+  const post = await getPostBySlug(slug);
 
   if (!post) {
     notFound();
