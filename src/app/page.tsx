@@ -152,7 +152,7 @@ export default function Home() {
             </button>
           )}
 
-          <MeditationPlayer />
+          {!isRunning && <MeditationPlayer />}
   
           {!isRunning && !isBreathing && (
             <button
