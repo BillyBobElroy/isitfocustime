@@ -10,7 +10,7 @@ export function MeditationPlayer() {
 
   const intervalRef = useRef<NodeJS.Timeout | null>(null);
   const audioRef = useRef<HTMLAudioElement | null>(null);
-  const colors = ['#6EE7B7', '#93C5FD', '#FBCFE8', '#FDE68A', '#A5B4FC']; // Pastel colors
+  const colors = ['#6EE7B7', '#93C5FD', '#FBCFE8', '#FDE68A', '#A5B4FC', '#FCA5A5', '#A7F3D0', '#BFDBFE', '#DDD6FE', '#FDE68A', '#FBCFE8', '#C7D2FE', '#FECDD3', '#FCD34D']; // Pastel colors
 
   useEffect(() => {
     if (isMeditating) {

@@ -146,7 +146,7 @@ export default function Home() {
           {!isRunning && (
             <button
               onClick={startTimer}
-              className="px-6 py-3 bg-green-500 text-white text-lg rounded-lg hover:bg-green-600 transition"
+              className="px-6 py-3 bg-green-500 text-white text-lg rounded-lg hover:bg-green-600 transition mb-4"
             >
               Start Focus Session
             </button>
