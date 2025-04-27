@@ -2,11 +2,22 @@
 
 import { useState, useEffect } from 'react';
 
+const presetColors = [
+  '#ff4d4d', // Red
+  '#4dff4d', // Green
+  '#4d4dff', // Blue
+  '#ff4dff', // Pink
+  '#ffcc00', // Yellow
+  '#00ffff', // Cyan
+  '#ffffff', // White
+];
+
 export default function MoodTrackerPage() {
   const [mood, setMood] = useState('');
   const [note, setNote] = useState('');
+  const [color, setColor] = useState(presetColors[0]);
   const [savedMessage, setSavedMessage] = useState('');
-  const [pastEntries, setPastEntries] = useState<{ mood: string; note: string; timestamp: string }[]>([]);
+  const [pastEntries, setPastEntries] = useState<{ mood: string; note: string; color: string; timestamp: string }[]>([]);
   const [showPast, setShowPast] = useState(false);
 
   useEffect(() => {
@@ -19,6 +30,7 @@ export default function MoodTrackerPage() {
     const newEntry = {
       mood,
       note,
+      color,
       timestamp: new Date().toISOString(),
     };
     const updated = [...existing, newEntry];
@@ -27,6 +39,7 @@ export default function MoodTrackerPage() {
     setSavedMessage('🌟 Mood saved!');
     setMood('');
     setNote('');
+    setColor(presetColors[0]); // Reset to first preset
   };
 
   const handleClear = () => {
@@ -53,6 +66,20 @@ export default function MoodTrackerPage() {
         placeholder="Why do you feel this way? (optional)"
         className="bg-zinc-800 text-white rounded-lg px-4 py-3 mb-6 w-full max-w-md font-mono placeholder-zinc-500"
       />
+
+      {/* 🎨 Color Palette Picker */}
+      <div className="flex gap-3 mb-6 flex-wrap justify-center">
+        {presetColors.map((preset) => (
+          <button
+            key={preset}
+            onClick={() => setColor(preset)}
+            className={`w-8 h-8 rounded-full border-2 ${
+              color === preset ? 'border-green-400' : 'border-transparent'
+            }`}
+            style={{ backgroundColor: preset }}
+          />
+        ))}
+      </div>
 
       <button
         onClick={handleSave}
@@ -87,30 +114,20 @@ export default function MoodTrackerPage() {
             <p className="text-zinc-400 text-center italic">No past moods saved yet.</p>
           ) : (
             pastEntries.map((entry, idx) => (
-              <div key={idx} className="bg-zinc-800 rounded-lg p-4">
-                <p className="text-xl font-bold">{entry.mood}</p>
-                {entry.note && <p className="text-zinc-300 mt-1">{entry.note}</p>}
-                <p className="text-xs text-zinc-400 mt-2">{new Date(entry.timestamp).toLocaleDateString()}</p>
+              <div key={idx} className="bg-zinc-800 rounded-lg p-4 flex items-center gap-4">
+                {/* 🎨 Show color */}
+                <div
+                  className="w-6 h-6 rounded-full"
+                  style={{ backgroundColor: entry.color }}
+                />
+                <div>
+                  <p className="text-xl font-bold">{entry.mood}</p>
+                  {entry.note && <p className="text-zinc-300 mt-1">{entry.note}</p>}
+                  <p className="text-xs text-zinc-400 mt-2">{new Date(entry.timestamp).toLocaleDateString()}</p>
+                </div>
               </div>
             ))
           )}
-
-          <div className="my-8 flex justify-center">
-            <ins
-              className="adsbygoogle"
-              style={{ display: 'inline-block', width: '728px', height: '90px' }}
-              data-ad-client="ca-pub-4813693653154178"
-              data-ad-slot="8997853730"
-              data-ad-format="auto"
-              data-full-width-responsive="true"
-            />
-            <ins
-              className="adsbygoogle inline-block md:hidden"
-              style={{ width: '300px', height: '250px' }}
-              data-ad-client="ca-pub-4813693653154178"
-              data-ad-slot="8997853730"
-            />
-          </div>
         </div>
       )}
     </div>

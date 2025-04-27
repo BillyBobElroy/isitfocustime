@@ -5,3 +5,10 @@
 body {
   @apply bg-zinc-900 text-white;
 }
+
+.prose blockquote {
+  border-left: 4px solid #22c55e; /* green-500 */
+  padding-left: 1rem;
+  color: #9ca3af; /* zinc-400 */
+  font-style: italic;
+}

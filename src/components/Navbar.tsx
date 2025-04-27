@@ -26,6 +26,9 @@ export default function Navbar() {
         <Link href="/gratitude-journal" className={linkStyle('/gratitude-journal')}>
           Gratitude Journal
         </Link>
+        <Link href="/blog" className={linkStyle('/blog')}>
+          Blog
+        </Link>
       </div>
     </nav>
   );
