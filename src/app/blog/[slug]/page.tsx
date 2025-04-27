@@ -32,12 +32,8 @@ export async function generateStaticParams() {
 }
 
 // ✅ Make BlogPostPage async
-export default async function BlogPostPage({ params }: PageProps<{ slug: string }>) {
-  const slug = params?.slug ? decodeURIComponent(params.slug) : null;
-
-  if (!slug) {
-    notFound();
-  }
+export default async function BlogPostPage({ params }: { params: { slug: string } }) {
+  const slug = decodeURIComponent(params.slug);
 
   const post = getPostBySlug(slug);
 
