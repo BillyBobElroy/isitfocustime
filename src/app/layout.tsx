@@ -15,7 +15,7 @@ export const metadata: Metadata = {
   description: 'A minimalist focus and mindfulness platform. Start 25-minute focus sessions, 5-minute meditations, track moods, and journal gratitude — all distraction-free. Boost your productivity and mental clarity naturally.',
   openGraph: {
     title: 'isitfocustime – Focus Timer, Meditation, Mood Tracker & More',
-    description: 'Ridiculously simple 25-minute focus timer. Plus a 5-minute meditation player, daily mood tracker, and gratitude journal. Minimalist tools for real productivity.',  
+    description: 'Focus deeper with a 25-minute timer, meditation mode, mood tracker, and gratitude journal. Minimalist. Free. No distractions.',  
     images: ['/og-image.png'],
   },
   keywords: [
