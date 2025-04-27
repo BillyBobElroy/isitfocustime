@@ -19,7 +19,7 @@ export function TOC() {
   if (headings.length === 0) return null;
 
   return (
-<aside className="hidden xl:block w-64 pt-2 border-b border-zinc-800 pb-6">
+<aside className="hidden xl:block w-64 pt-2 border-b border-zinc-800 pb-10">
   <div className="font-bold mb-4 text-green-400">On this page:</div>
   <ul className="space-y-2">
     {headings.map((h) => (
