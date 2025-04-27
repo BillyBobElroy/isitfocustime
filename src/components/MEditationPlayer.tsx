@@ -66,7 +66,7 @@ export function MeditationPlayer({ onMeditationEnd }: { onMeditationEnd?: () => 
       {/* Hidden audio element */}
       <audio
         ref={audioRef}
-        src="/meditation.mp3"
+        src="/sounds/meditation.mp3"
         onEnded={() => {
           setIsPlaying(false);
           setTimeLeft(0);
