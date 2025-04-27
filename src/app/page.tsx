@@ -151,6 +151,8 @@ export default function Home() {
               Start Focus Session
             </button>
           )}
+
+          <MeditationPlayer />
   
           {!isRunning && !isBreathing && (
             <button
@@ -173,8 +175,6 @@ export default function Home() {
               </label>
             </div>
           )}
-
-          <MeditationPlayer />
   
           {showEmbed && <EmbedBlock />}
   
