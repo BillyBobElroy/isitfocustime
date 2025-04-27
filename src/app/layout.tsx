@@ -11,16 +11,17 @@ const nunito = Nunito({
 });
 
 export const metadata: Metadata = {
-  title: 'isitfocustime – Simple 25-Minute Focus Timer Online',
-  description: 'A minimalist, distraction-free focus timer online. Start a 25-minute session instantly. Simple pomodoro alternative for productivity, studying, and memes.',
+  title: 'isitfocustime – Focus & Mindfulness Tools for Better Productivity',
+  description: 'A minimalist focus and mindfulness platform. Start 25-minute focus sessions, 5-minute meditations, track moods, and journal gratitude — all distraction-free. Boost your productivity and mental clarity naturally.',
   openGraph: {
-    title: 'isitfocustime – Focus Timer Online',
-    description: 'Ridiculously simple 25-minute focus timer. A minimalist pomodoro-style site with meme energy. No distractions, just focus.',
+    title: 'isitfocustime – Focus Timer, Meditation, Mood Tracker & More',
+    description: 'Ridiculously simple 25-minute focus timer. Plus a 5-minute meditation player, daily mood tracker, and gratitude journal. Minimalist tools for real productivity.',  
     images: ['/og-image.png'],
   },
   keywords: [
     'focus timer online',
     '25 minute focus timer',
+    '5 minute meditation timer',
     'simple pomodoro timer',
     'minimalist productivity tools',
     'focus time meme',
@@ -29,6 +30,20 @@ export const metadata: Metadata = {
     'free online mood tracker',
     'best 30 second breathe timers free',
     'best 30 second focus timers free',
+    'focus and mindfulness tools free',
+    'online breathing exercise timer',
+    'meditation timer with calming background',
+    'daily mood tracker free tool',
+    'gratitude and mood journaling app',
+    'calm down timers online free',
+    'focus apps without ads',
+    'relaxation breathing bubble online',
+    'pomodoro alternative for ADHD focus',
+    'simple 5-minute meditation practice',
+    'guided breathing exercise online',
+    'mood journal templates printable free',
+    'improve focus and productivity naturally',
+    'habit trackers for focus and wellness',
   ],
   icons: {
     icon: '/favicon.ico',
