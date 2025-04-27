@@ -1,10 +1,10 @@
 import './globals.css';
-import { Space_Mono } from 'next/font/google';
+import { Nunito, Nunito_Sans } from 'next/font/google';
 import type { Metadata } from 'next';
 import Footer from '@/components/Footer';
 import Navbar from '@/components/Navbar';
 
-const spaceMono = Space_Mono({
+const nunito = Nunito({
   weight: ['400', '700'],
   subsets: ['latin'],
   display: 'swap',
@@ -40,7 +40,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     <>
     <Navbar />
     <html lang="en">
-      <body className={spaceMono.className}>{children}</body>
+      <body className={nunito.className}>{children}</body>
     </html>
   <Footer />
   </>

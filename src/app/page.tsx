@@ -2,12 +2,12 @@
 
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
-import { Space_Mono } from 'next/font/google';
+import { Nunito } from 'next/font/google';
 import { EmbedBlock } from '@/components/EmbedBlock';
 import BreatheTimer from '@/components/BreatheTimer';
 import { MeditationPlayer } from '@/components/MEditationPlayer';
 
-const spaceMono = Space_Mono({
+const nunito = Nunito({
   weight: ['400', '700'],
   subsets: ['latin'],
   display: 'swap',
@@ -114,7 +114,7 @@ export default function Home() {
         <BreatheTimer />
       ) : (
         <>
-          <h1 className={`${spaceMono.className} text-4xl font-bold mb-4`}>isitfocustime.com</h1>
+          <h1 className={`${nunito.className} text-4xl font-bold mb-4`}>isitfocustime.com</h1>
           <p className="text-xl mb-2 text-center">{quote}</p>
           {!isRunning && <p className="text-sm text-zinc-400 mb-4">{getTimeSnark()}</p>}
   
