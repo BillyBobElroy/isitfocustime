@@ -5,13 +5,6 @@ import { TOC } from '@/components/TOC';
 import { MDXRemote } from 'next-mdx-remote/rsc';
 import rehypeSlug from 'rehype-slug';
 
-// 🛡️ Strong type for dynamic route params
-interface BlogPageProps {
-  params: {
-    slug: string;
-  };
-}
-
 function formatDate(dateString: string) {
   const date = new Date(dateString);
   const options: Intl.DateTimeFormatOptions = { year: 'numeric', month: 'long', day: 'numeric' };
@@ -33,13 +26,15 @@ export async function generateStaticParams() {
 }
 
 // ✅ Make BlogPostPage async
-export default async function BlogPostPage({ params }: BlogPageProps) {
-  if (!params?.slug) notFound(); // 🛡️ Guard
+export default async function BlogPostPage(props: any) {
+  const { params } = await props; // ✅ properly await props at top level
 
   const slug = decodeURIComponent(params.slug);
   const post = await getPostBySlug(slug);
 
-  if (!post) notFound(); // 🛡️ Guard
+  if (!post) {
+    notFound();
+  }
 
   return (
     <div className="flex flex-col items-center min-h-screen bg-zinc-900 text-white px-4 py-12">
