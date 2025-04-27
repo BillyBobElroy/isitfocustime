@@ -29,7 +29,7 @@ export function MeditationPlayer() {
       // Start color cycle
       const colorTimer = setInterval(() => {
         setColorIndex((prev) => (prev + 1) % colors.length);
-      }, 5000);
+      }, 10000);
 
       // Play audio
       if (audioRef.current) {
@@ -91,7 +91,7 @@ export function MeditationPlayer() {
                 scale: [1, 1.5, 1],
               }}
               transition={{
-                duration: 8,
+                duration: 10,
                 repeat: Infinity,
                 ease: 'easeInOut',
               }}
