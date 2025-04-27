@@ -13,7 +13,7 @@ export default function BlogPage() {
   return (
     <div className="flex flex-col items-center min-h-screen bg-zinc-900 text-white px-4 py-12">
       <div className="max-w-4xl w-full space-y-10">
-        <h1 className="text-4xl font-bold mb-10 text-center">Blog</h1>
+        <h1 className="text-4xl font-bold mb-10 text-center">isitfocustime.com Blog</h1>
 
         {posts.map((post) => (
           <div key={post.slug} className="bg-zinc-800 p-6 rounded-xl shadow-md hover:shadow-lg transition">
