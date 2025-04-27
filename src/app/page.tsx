@@ -141,7 +141,7 @@ export default function Home() {
             </p>
           )}
   
-          <div className="text-6xl font-mono mb-4">{formatTime(secondsLeft)}</div>
+          <div className="text-6xl font-nunito mb-4">{formatTime(secondsLeft)}</div>
   
           {!isRunning && (
             <button
