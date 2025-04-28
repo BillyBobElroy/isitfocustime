@@ -162,10 +162,12 @@ export default function Home() {
             </button>
           )}
 
+          {!isRunning && (
           <Link href="/meditation-player" className="text-green-400 hover:underline">
               Start a Meditation Session →
           </Link>
-  
+          )}
+          
           {!isRunning && (
             <div className="mt-4 text-sm">
               <label className="flex items-center gap-2">

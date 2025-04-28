@@ -78,7 +78,9 @@ export default function MoodTrackerPage() {
   };
 
   return (
-    <div className="flex flex-col items-center min-h-screen bg-zinc-900 px-6 py-12 text-white">
+    <div className="flex flex-col items-center justify-center min-h-screen bg-zinc-900 text-white px-6 py-12">
+      <div className="max-w-md w-full space-y-8">
+        <div className="text-center">
       <h1 className="text-3xl font-bold mb-6 font-nunito">isitfocustime.com</h1>
       <p className="text-4xl font-bold mb-8">Mood Tracker</p>
 
@@ -220,6 +222,8 @@ export default function MoodTrackerPage() {
           />
         </div>
       )}
+    </div>
+    </div>
     </div>
   );
 }
