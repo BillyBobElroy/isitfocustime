@@ -116,7 +116,7 @@ export default function Home() {
       ) : (
         <>
           <h1 className={`${nunito.className} text-4xl font-bold mb-4`}>isitfocustime.com</h1>
-          <div className="w-full overflow-x-hidden min-h-screen">
+          <div className="max-w-md w-full space-y-8">
           <p className="text-xl mb-2 text-center">{quote}</p>
           {!isRunning && <p className="text-sm text-zinc-400 mb-4">{getTimeSnark()}</p>}
   
