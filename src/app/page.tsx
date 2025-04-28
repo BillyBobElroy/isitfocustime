@@ -104,7 +104,8 @@ export default function HomePage() {
   };
 
   return (
-    <main className="w-full overflow-x-hidden min-h-screen bg-zinc-900 text-white flex flex-col items-center px-4 py-12">
+    <main className="overflow-x-hidden min-h-screen bg-zinc-900 text-white flex flex-col items-center px-4 py-12">
+      <div className="max-w-md w-full space-y-8">
       {isBreathing ? (
         <BreatheTimer />
       ) : (
@@ -193,6 +194,7 @@ export default function HomePage() {
           </div>
         </>
       )}
+      </div>
     </main>
   );
 }
