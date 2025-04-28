@@ -3,7 +3,7 @@
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { useState } from 'react';
-import { Menu, X } from 'lucide-react'; // You can swap icons if you want
+import { Menu, X } from 'lucide-react'; // You can swap icons if you want 
 
 export default function Navbar() {
   const pathname = usePathname();
