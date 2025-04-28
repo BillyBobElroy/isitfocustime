@@ -158,7 +158,7 @@ export default function Home() {
           {!isRunning && !isBreathing && (
             <button
               onClick={startBreatheMode}
-              className="mt-2 px-5 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition mb-2"
+              className="px-6 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition mb-2"
             >
               Start 30-Second Breathe Reset
             </button>
