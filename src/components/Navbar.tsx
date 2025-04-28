@@ -30,7 +30,7 @@ export default function Navbar() {
             onClick={() => setMenuOpen(!menuOpen)}
             className="hover:text-green-400 transition focus:outline-none"
           >
-            Tools ▼
+            Timers ▼
           </button>
 
           {/* Dropdown menu */}
@@ -43,6 +43,22 @@ export default function Navbar() {
               >
                 Meditation Player
               </Link>
+            </div>
+          )}
+        </div>
+
+                {/* Dropdown trigger */}
+                <div className="relative">
+          <button
+            onClick={() => setMenuOpen(!menuOpen)}
+            className="hover:text-green-400 transition focus:outline-none"
+          >
+            Journals ▼
+          </button>
+
+          {/* Dropdown menu */}
+          {menuOpen && (
+            <div className="absolute right-0 mt-2 w-48 bg-zinc-800 rounded-lg shadow-lg py-2 z-50">
               <Link
                 href="/mood-tracker"
                 className="block px-4 py-2 hover:bg-zinc-700"
