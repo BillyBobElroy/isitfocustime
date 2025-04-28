@@ -21,7 +21,7 @@ export default function Navbar() {
           Focus Timer
         </Link>
         <Link href="/meditation-player" className={linkStyle('/meditation-player')}>
-          5-Min Meditation
+          Meditation Player
         </Link>
         <Link href="/mood-tracker" className={linkStyle('/mood-tracker')}>
           Mood Tracker

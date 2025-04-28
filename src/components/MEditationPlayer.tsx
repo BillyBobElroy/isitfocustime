@@ -14,6 +14,22 @@ export function MeditationPlayer() {
 
   const colors = ['#6EE7B7', '#93C5FD', '#FBCFE8', '#FDE68A', '#A5B4FC', '#FCA5A5', '#A7F3D0', '#BFDBFE', '#DDD6FE', '#FDE68A', '#FBCFE8', '#C7D2FE', '#FECDD3', '#FCD34D'];
 
+  const gentleReminders = [
+    "Breathe deeply...",
+    "Let go of tension...",
+    "Focus on the rhythm of your breath...",
+    "Allow thoughts to pass like clouds...",
+    "Feel the air filling your lungs...",
+    "Relax your shoulders...",
+    "Let your mind drift peacefully...",
+    "Notice the rise and fall of your chest...",
+    "Stay present in this moment...",
+    "Soften your gaze or close your eyes...",
+    "Smile gently...",
+  ];  
+
+  const [currentReminder, setCurrentReminder] = useState(gentleReminders[0]);
+
   useEffect(() => {
     if (isMeditating) {
       intervalRef.current = setInterval(() => {
@@ -27,6 +43,11 @@ export function MeditationPlayer() {
         });
       }, 1000);
 
+      const reminderTimer = setInterval(() => {
+        const randomIndex = Math.floor(Math.random() * gentleReminders.length);
+        setCurrentReminder(gentleReminders[randomIndex]);
+      }, 30000);
+
       const colorTimer = setInterval(() => {
         setColorIndex((prev) => (prev + 1) % colors.length);
       }, 10000);
@@ -39,6 +60,7 @@ export function MeditationPlayer() {
       return () => {
         clearInterval(intervalRef.current!);
         clearInterval(colorTimer);
+        clearInterval(reminderTimer);
       };
     }
   }, [isMeditating]);
