@@ -110,7 +110,7 @@ export default function Home() {
   };
 
   return (
-    <main className="flex flex-col items-center justify-center min-h-screen bg-zinc-900 text-white px-6 py-12"> 
+    <main className="w-full overflow-x-hidden min-h-screen flex flex-col items-center justify-center bg-zinc-900 text-white px-6 py-12"> 
       {isBreathing ? (
         <BreatheTimer />
       ) : (
