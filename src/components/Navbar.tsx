@@ -20,7 +20,7 @@ export default function Navbar() {
         <Link href="/" className={linkStyle('/')}>
           Focus Timer
         </Link>
-        <Link href="/meditation-player" className={linkStyle('/gratitude-journal')}>
+        <Link href="/meditation-player" className={linkStyle('/meditation-player')}>
           5-Min Meditation
         </Link>
         <Link href="/mood-tracker" className={linkStyle('/mood-tracker')}>
