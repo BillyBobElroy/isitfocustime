@@ -158,7 +158,22 @@ useEffect(() => {
             )}
           </div>
         )}
-
+          <div className="my-8 flex justify-center">
+            <ins
+              className="adsbygoogle"
+              style={{ display: 'inline-block', width: '728px', height: '90px' }}
+              data-ad-client="ca-pub-4813693653154178"
+              data-ad-slot="8997853730"
+              data-ad-format="auto"
+              data-full-width-responsive="true"
+            />
+            <ins
+              className="adsbygoogle inline-block md:hidden"
+              style={{ width: '300px', height: '250px' }}
+              data-ad-client="ca-pub-4813693653154178"
+              data-ad-slot="8997853730"
+            />
+          </div>
         {/* (Optional) Footer Ads or Motivational Quote Later */}
       </div>
     </div>
