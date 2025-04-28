@@ -141,6 +141,16 @@ export function MeditationPlayer() {
               transition={{ duration: 10, repeat: Infinity, ease: 'easeInOut' }}
               className="w-48 h-48 bg-white rounded-full opacity-20"
             />
+            <motion.p
+              key={currentReminder}
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 1 }}
+              className="mt-6 text-xl text-white text-center italic"
+        >
+              {currentReminder}
+              </motion.p>
 
             <p className="mt-8 text-2xl font-bold text-white">{formatTime(timeLeft)}</p>
           </motion.div>
