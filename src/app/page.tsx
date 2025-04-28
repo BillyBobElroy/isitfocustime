@@ -111,6 +111,8 @@ export default function Home() {
 
   return (
     <main className="flex flex-col items-center justify-center min-h-screen bg-zinc-900 text-white px-4">
+              <div className="max-w-md w-full space-y-8">
+              <div className="text-center"></div>
       {isBreathing ? (
         <BreatheTimer />
       ) : (
@@ -199,8 +201,9 @@ export default function Home() {
               data-ad-slot="8997853730"
             />
           </div>
-        </>
+          </>
       )}
+      </div>
     </main>
   );
 }  

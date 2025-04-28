@@ -12,6 +12,8 @@ const nunito = Nunito({
 export default function MeditationPage() {
   return (
     <div className="flex flex-col items-center justify-center min-h-screen bg-zinc-900 text-white px-6 py-12">
+            <div className="max-w-md w-full space-y-8">
+            <div className="text-center">
       <h1 className={`${nunito.className} text-4xl font-bold mb-4`}>isitfocustime.com</h1>
       <p className="text-4xl font-bold mb-8">Meditation Timer</p>
 
@@ -33,6 +35,8 @@ export default function MeditationPage() {
               data-ad-slot="8997853730"
             />
           </div>
+    </div>
+    </div>
     </div>
   );
 }
