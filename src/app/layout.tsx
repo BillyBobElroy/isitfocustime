@@ -54,10 +54,12 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <>
     <Navbar />
+    <div className="w-full overflow-x-hidden min-h-screen">
     <html lang="en">
       <body className={nunito.className}>{children}</body>
     </html>
   <Footer />
+  </div>
   </>
   );
 }
