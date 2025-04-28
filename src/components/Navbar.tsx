@@ -7,7 +7,8 @@ import { Menu, X } from 'lucide-react'; // You can swap icons if you want
 
 export default function Navbar() {
   const pathname = usePathname();
-  const [menuOpen, setMenuOpen] = useState(false);
+  const [timerMenuOpen, setTimerMenuOpen] = useState(false);
+  const [toolsMenuOpen, setToolsMenuOpen] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   const linkStyle = (path: string) =>
@@ -30,13 +31,13 @@ export default function Navbar() {
         {/* Dropdown Trigger */}
         <div className="relative">
           <button
-            onClick={() => setMenuOpen(!menuOpen)}
+            onClick={() => setTimerMenuOpen(!timerMenuOpen)}
             className="hover:text-green-400 transition flex items-center gap-1"
           >
             Timers
             <span
               className={`transform transition-transform ${
-                menuOpen ? 'rotate-180' : 'rotate-0'
+                timerMenuOpen ? 'rotate-180' : 'rotate-0'
               }`}
             >
               ▼
@@ -44,12 +45,12 @@ export default function Navbar() {
           </button>
 
           {/* Dropdown Menu */}
-          {menuOpen && (
+          {timerMenuOpen && (
             <div className="absolute right-0 mt-2 w-48 bg-zinc-800 rounded-lg shadow-lg py-2 z-50">
               <Link
                 href="/meditation-player"
                 className="block px-4 py-2 hover:bg-zinc-700"
-                onClick={() => setMenuOpen(false)}
+                onClick={() => setTimerMenuOpen(false)}
               >
                 Meditation Player
               </Link>
@@ -60,13 +61,13 @@ export default function Navbar() {
                 {/* Dropdown Trigger */}
                 <div className="relative">
           <button
-            onClick={() => setMenuOpen(!menuOpen)}
+            onClick={() => setToolsMenuOpen(!toolsMenuOpen)}
             className="hover:text-green-400 transition flex items-center gap-1"
           >
             Journals & Trackers
             <span
               className={`transform transition-transform ${
-                menuOpen ? 'rotate-180' : 'rotate-0'
+                toolsMenuOpen ? 'rotate-180' : 'rotate-0'
               }`}
             >
               ▼
@@ -74,19 +75,19 @@ export default function Navbar() {
           </button>
 
           {/* Dropdown Menu */}
-          {menuOpen && (
+          {toolsMenuOpen && (
             <div className="absolute right-0 mt-2 w-48 bg-zinc-800 rounded-lg shadow-lg py-2 z-50">
               <Link
                 href="/mood-tracker"
                 className="block px-4 py-2 hover:bg-zinc-700"
-                onClick={() => setMenuOpen(false)}
+                onClick={() => setToolsMenuOpen(false)}
               >
                 Mood Tracker
               </Link>
               <Link
                 href="/gratitude-journal"
                 className="block px-4 py-2 hover:bg-zinc-700"
-                onClick={() => setMenuOpen(false)}
+                onClick={() => setToolsMenuOpen(false)}
               >
                 Gratitude Journal
               </Link>
