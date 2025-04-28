@@ -155,7 +155,7 @@ export default function HomePage() {
           )}
 
           {!isRunning && (
-            <Link href="/meditation-player" className="text-green-400 hover:underline mb-6">
+            <Link href="/meditation-player" className="text-green-400 hover:underline mb-4">
               Start a Meditation Session →
             </Link>
           )}
