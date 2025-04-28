@@ -147,7 +147,7 @@ export default function Home() {
           {!isRunning && (
             <button
               onClick={startTimer}
-              className="px-6 py-3 bg-green-500 text-white text-lg rounded-lg hover:bg-green-600 transition mb-4"
+              className="px-6 py-3 bg-green-500 text-white text-lg rounded-lg hover:bg-green-600 transition mb-2"
             >
               Start Focus Session
             </button>
@@ -156,7 +156,7 @@ export default function Home() {
           {!isRunning && !isBreathing && (
             <button
               onClick={startBreatheMode}
-              className="mt-4 px-5 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition"
+              className="mt-4 px-5 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition mb-2"
             >
               Start 30-Second Breathe Reset
             </button>
