@@ -61,7 +61,7 @@ useEffect(() => {
 }, []);
 
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen bg-zinc-900 text-white px-6 py-12">
+    <div className="overflow-x-hidden flex flex-col items-center justify-center min-h-screen bg-zinc-900 text-white px-6 py-12">
       <div className="max-w-md w-full space-y-8">
         <div className="text-center">
           <h1 className="text-3xl font-bold mb-2">isitfocustime.com</h1>
