@@ -6,7 +6,6 @@ import Link from 'next/link';
 import { Nunito } from 'next/font/google';
 import { EmbedBlock } from '@/components/EmbedBlock';
 import BreatheTimer from '@/components/BreatheTimer';
-import { MeditationPlayer } from '@/components/MEditationPlayer';
 
 const nunito = Nunito({
   weight: ['400', '700'],
@@ -14,16 +13,17 @@ const nunito = Nunito({
   display: 'swap',
 });
 
-export default function Home() {
-  const router = useRouter() as any;
-  const [timeInput, setTimeInput] = useState(25); // default in minutes
-  const [secondsLeft, setSecondsLeft] = useState(timeInput * 60);
+export default function HomePage() {
+  const router = useRouter();
+  const [timeInput, setTimeInput] = useState(25); // default minutes
+  const [secondsLeft, setSecondsLeft] = useState(25 * 60);
   const [isRunning, setIsRunning] = useState(false);
   const [quote, setQuote] = useState('');
   const [showEmbed, setShowEmbed] = useState(true);
   const [isPomodoro, setIsPomodoro] = useState(false);
   const [isBreak, setIsBreak] = useState(false);
   const [isBreathing, setIsBreathing] = useState(false);
+
   const alarm = typeof window !== 'undefined' ? new Audio('/sounds/alarm.mp3') : null;
 
   useEffect(() => {
@@ -32,40 +32,35 @@ export default function Home() {
 
   useEffect(() => {
     let timer: NodeJS.Timeout;
-  
     if (isRunning && secondsLeft > 0) {
       timer = setInterval(() => {
         setSecondsLeft((prev) => prev - 1);
       }, 1000);
     } else if (isRunning && secondsLeft === 0) {
-      if (alarm) {
-        alarm.play();
-      }
-  
+      if (alarm) alarm.play();
+
       if (isPomodoro) {
         const nextPhase = isBreak ? 'focus' : 'break';
         setIsBreak(!isBreak);
         setSecondsLeft(nextPhase === 'focus' ? timeInput * 60 : 5 * 60);
       } else {
         setTimeout(() => {
-          router.push(`/you-did-it`);
-        }, 10000); // Wait 10s before redirect
+          router.push('/you-did-it');
+        }, 10000);
       }
     }
-  
     return () => clearInterval(timer);
-  }, [isRunning, secondsLeft, isPomodoro, isBreak]);
+  }, [isRunning, secondsLeft, isPomodoro, isBreak, alarm, router]);
 
   useEffect(() => {
     try {
-      // @ts-ignore
+      //@ts-ignore
       (window.adsbygoogle = window.adsbygoogle || []).push({});
     } catch (e) {
-      console.error("AdSense error:", e);
+      console.error('AdSense error:', e);
     }
   }, []);
 
-  // Meme layer: rotating quotes
   useEffect(() => {
     const quotes = [
       "Stop scrolling. Hit the button.",
@@ -92,84 +87,81 @@ export default function Home() {
     setShowEmbed(false);
   };
 
-  const formatTime = (secs: number) => {
-    const mins = Math.floor(secs / 60);
-    const secsRemain = secs % 60;
-    return `${String(mins).padStart(2, '0')}:${String(secsRemain).padStart(2, '0')}`;
-  };
-
   const startBreatheMode = () => {
     setIsBreathing(true);
     setShowEmbed(true);
-    setIsRunning(false); // extra safety
-  
+    setIsRunning(false);
     setTimeout(() => {
       setIsBreathing(false);
       setQuote('Feeling calmer? Ready to focus?');
     }, 30000);
   };
 
+  const formatTime = (secs: number) => {
+    const mins = Math.floor(secs / 60);
+    const secsRemain = secs % 60;
+    return `${String(mins).padStart(2, '0')}:${String(secsRemain).padStart(2, '0')}`;
+  };
+
   return (
-    <main className="flex flex-col items-center justify-center min-h-screen bg-zinc-900 text-white px-4">
+    <main className="w-full overflow-x-hidden min-h-screen bg-zinc-900 text-white flex flex-col items-center px-4 py-12">
       {isBreathing ? (
         <BreatheTimer />
       ) : (
         <>
           <h1 className={`${nunito.className} text-4xl font-bold mb-4`}>isitfocustime.com</h1>
-          <p className="flex flex-col text-xl mb-2 text-center">{quote}</p>
+          <p className="text-xl mb-2 text-center">{quote}</p>
           {!isRunning && <p className="text-sm text-zinc-400 mb-4">{getTimeSnark()}</p>}
-  
+
           {!isRunning && (
-            <div className="mb-4 text-center flex flex-col items-center justify-center">
-              <label className="block mb-2 text-sm font-medium">Choose your focus time (minutes):</label>
+            <div className="mb-4 flex flex-col items-center">
+              <label className="text-sm font-medium mb-2">Choose your focus time (minutes):</label>
               <input
                 type="number"
                 min={1}
                 max={120}
                 value={timeInput}
                 onChange={(e) => setTimeInput(Number(e.target.value))}
-                className="w-24 px-3 py-2 rounded bg-zinc-800 border border-zinc-700 text-white text-center"
+                className="w-24 px-3 py-2 rounded-lg bg-zinc-800 border border-zinc-700 text-center text-white"
               />
               {timeInput >= 60 && (
-                <p className="text-yellow-400 text-sm mt-4">💀 That's a long one. Don’t forget to blink.</p>
+                <p className="text-yellow-400 text-xs mt-2">💀 That's a long one. Don’t forget to blink.</p>
               )}
             </div>
           )}
 
           {isPomodoro && (
-            <p className="text-sm text-zinc-400 mb-4">
-              {isBreak ? 'Break Time' : 'Focus Time'}
-            </p>
+            <p className="text-sm text-zinc-400 mb-4">{isBreak ? 'Break Time' : 'Focus Time'}</p>
           )}
-  
-          <div className="text-6xl font-nunito mb-4">{formatTime(secondsLeft)}</div>
-  
+
+          <div className="text-6xl font-nunito mb-6">{formatTime(secondsLeft)}</div>
+
           {!isRunning && (
             <button
               onClick={startTimer}
-              className="px-6 py-3 bg-green-500 text-white text-lg rounded-lg hover:bg-green-600 transition mb-2"
+              className="px-6 py-3 bg-green-500 hover:bg-green-600 text-white text-lg rounded-lg mb-4 transition"
             >
               Start Focus Session
             </button>
           )}
-  
-          {!isRunning && !isBreathing && (
+
+          {!isRunning && (
             <button
               onClick={startBreatheMode}
-              className="px-6 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition mb-2"
+              className="px-6 py-2 bg-blue-500 hover:bg-blue-600 text-white rounded-lg mb-4 transition"
             >
               Start 30-Second Breathe Reset
             </button>
           )}
 
           {!isRunning && (
-          <Link href="/meditation-player" className="text-green-400 hover:underline">
+            <Link href="/meditation-player" className="text-green-400 hover:underline mb-6">
               Start a Meditation Session →
-          </Link>
+            </Link>
           )}
-          
+
           {!isRunning && (
-            <div className="mt-4 text-sm">
+            <div className="mt-2 text-sm">
               <label className="flex items-center gap-2">
                 <input
                   type="checkbox"
@@ -180,9 +172,9 @@ export default function Home() {
               </label>
             </div>
           )}
-  
+
           {showEmbed && <EmbedBlock />}
-  
+
           <div className="my-8 flex justify-center">
             <ins
               className="adsbygoogle"
@@ -199,8 +191,8 @@ export default function Home() {
               data-ad-slot="8997853730"
             />
           </div>
-          </>
+        </>
       )}
     </main>
   );
-}  
+}
