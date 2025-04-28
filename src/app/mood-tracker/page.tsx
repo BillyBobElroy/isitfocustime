@@ -2,6 +2,16 @@
 
 import { useState, useEffect } from 'react';
 import { Bar } from 'react-chartjs-2'; // 📈 for chart later (I'll set it up simply)
+import {
+  Chart as ChartJS,
+  BarElement,
+  CategoryScale,
+  LinearScale,
+  Tooltip,
+  Legend,
+} from 'chart.js';
+
+ChartJS.register(BarElement, CategoryScale, LinearScale, Tooltip, Legend);
 
 const presetColors = [
   '#ff6b6b', // Coral Red
