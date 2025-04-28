@@ -11,6 +11,7 @@ export function MeditationPlayer() {
 
   const intervalRef = useRef<NodeJS.Timeout | null>(null);
   const audioRef = useRef<HTMLAudioElement | null>(null);
+
   const colors = ['#6EE7B7', '#93C5FD', '#FBCFE8', '#FDE68A', '#A5B4FC', '#FCA5A5', '#A7F3D0', '#BFDBFE', '#DDD6FE', '#FDE68A', '#FBCFE8', '#C7D2FE', '#FECDD3', '#FCD34D'];
 
   useEffect(() => {
@@ -45,6 +46,11 @@ export function MeditationPlayer() {
   const handleStart = () => {
     setIsMeditating(true);
     setTimeLeft(sessionLength * 60);
+
+    if (audioRef.current) {
+      audioRef.current.src = sessionLength === 5 ? '/sounds/meditation.mp3' : '/sounds/meditation1.mp3';
+      audioRef.current.load(); // 👈 ensure it reloads the new audio
+    }
   };
 
   const stopMeditation = () => {
@@ -63,22 +69,21 @@ export function MeditationPlayer() {
 
   return (
     <div className="w-full flex flex-col items-center justify-center">
-      <audio ref={audioRef} src="/sounds/meditation.mp3" preload="auto" />
+      <audio ref={audioRef} preload="auto" />
 
       {!isMeditating && (
         <>
-          {/* ✨ Tiny header hint */}
           <p className="text-zinc-400 text-sm mb-4 font-semibold">
             Select your meditation length:
           </p>
 
           <div className="flex gap-4 mb-6">
-            {[5, 10, 20].map((minutes) => (
+            {[5, 10].map((minutes) => (
               <motion.button
                 key={minutes}
                 onClick={() => setSessionLength(minutes)}
-                whileTap={{ scale: 0.9 }} // 🌀 Tiny tap animation
-                animate={{ scale: sessionLength === minutes ? 1.1 : 1 }} // 🌀 Bump selected
+                whileTap={{ scale: 0.9 }}
+                animate={{ scale: sessionLength === minutes ? 1.1 : 1 }}
                 transition={{ type: 'spring', stiffness: 300 }}
                 className={`px-4 py-2 rounded-lg font-semibold ${
                   sessionLength === minutes
@@ -109,20 +114,12 @@ export function MeditationPlayer() {
             transition={{ duration: 1 }}
             className="fixed inset-0 flex flex-col items-center justify-center z-50"
           >
-            {/* Breathing Circle */}
             <motion.div
-              animate={{
-                scale: [1, 1.5, 1],
-              }}
-              transition={{
-                duration: 10,
-                repeat: Infinity,
-                ease: 'easeInOut',
-              }}
+              animate={{ scale: [1, 1.5, 1] }}
+              transition={{ duration: 10, repeat: Infinity, ease: 'easeInOut' }}
               className="w-48 h-48 bg-white rounded-full opacity-20"
             />
 
-            {/* Timer */}
             <p className="mt-8 text-2xl font-bold text-white">{formatTime(timeLeft)}</p>
           </motion.div>
         )}
