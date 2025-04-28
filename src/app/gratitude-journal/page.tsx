@@ -9,6 +9,16 @@ export default function GratitudeJournal() {
   const [selectedDate, setSelectedDate] = useState('');
   const [showPastEntries, setShowPastEntries] = useState(false);
 
+  const gratitudeQuotes = [
+    "Gratitude turns what we have into enough.",
+    "Start each day with a grateful heart.",
+    "The more you practice gratitude, the more there is to be grateful for.",
+    "Happiness is not the joy you feel when you get what you want, but the gratitude you feel for what you have.",
+    "Gratitude unlocks the fullness of life.",
+    "Today is a gift — that’s why it’s called the present.",
+    "Acknowledging the good you already have in your life is the foundation for all abundance.",
+  ];
+
   useEffect(() => {
     const stored = localStorage.getItem('gratitude-entries');
     if (stored) {
@@ -43,6 +53,13 @@ export default function GratitudeJournal() {
     ? savedEntries.filter((e) => e.date === selectedDate)
     : savedEntries;
 
+  const [quote, setQuote] = useState('');
+
+useEffect(() => {
+  const random = gratitudeQuotes[Math.floor(Math.random() * gratitudeQuotes.length)];
+  setQuote(random);
+}, []);
+
   return (
     <div className="flex flex-col items-center justify-center min-h-screen bg-zinc-900 text-white px-6 py-12">
       <div className="max-w-md w-full space-y-8">
@@ -50,6 +67,10 @@ export default function GratitudeJournal() {
           <h1 className="text-3xl font-bold mb-2">isitfocustime.com</h1>
           <p className="text-4xl font-bold">Gratitude Journal</p>
           <p className="text-sm text-zinc-400 mt-2">Capture 1-5 things you're grateful for daily 🌟</p>
+          <div className="bg-zinc-800 text-zinc-300 italic text-center rounded-lg p-4 mb-8 shadow">
+          "{quote}"
+          </div>
+
         </div>
 
         {gratitudes.map((g, idx) => (
