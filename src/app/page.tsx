@@ -111,12 +111,12 @@ export default function Home() {
 
   return (
     <main className="flex flex-col items-center justify-center min-h-screen bg-zinc-900 text-white px-4">
-      <div className="w-full overflow-x-hidden min-h-screen">
       {isBreathing ? (
         <BreatheTimer />
       ) : (
         <>
           <h1 className={`${nunito.className} text-4xl font-bold mb-4`}>isitfocustime.com</h1>
+          <div className="w-full overflow-x-hidden min-h-screen">
           <p className="text-xl mb-2 text-center">{quote}</p>
           {!isRunning && <p className="text-sm text-zinc-400 mb-4">{getTimeSnark()}</p>}
   
@@ -200,9 +200,9 @@ export default function Home() {
               data-ad-slot="8997853730"
             />
           </div>
+          </div>
           </>
       )}
-      </div>
     </main>
   );
 }  
