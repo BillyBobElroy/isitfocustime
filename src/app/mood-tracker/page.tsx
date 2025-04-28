@@ -2,22 +2,31 @@
 
 import { useState, useEffect } from 'react';
 
+// 🎨 Expand preset mood colors
 const presetColors = [
-  '#ff4d4d', // Red
-  '#4dff4d', // Green
-  '#4d4dff', // Blue
-  '#ff4dff', // Pink
-  '#ffcc00', // Yellow
-  '#00ffff', // Cyan
-  '#ffffff', // White
+  '#ff6b6b', // Coral Red
+  '#feca57', // Warm Yellow
+  '#48dbfb', // Light Blue
+  '#1dd1a1', // Teal
+  '#5f27cd', // Purple
+  '#ff9ff3', // Pink
+  '#c8d6e5', // Light Gray
+  '#576574', // Slate Gray
 ];
+
+type MoodEntry = {
+  mood: string;
+  note: string;
+  color: string;
+  timestamp: string;
+};
 
 export default function MoodTrackerPage() {
   const [mood, setMood] = useState('');
   const [note, setNote] = useState('');
   const [color, setColor] = useState(presetColors[0]);
   const [savedMessage, setSavedMessage] = useState('');
-  const [pastEntries, setPastEntries] = useState<{ mood: string; note: string; color: string; timestamp: string }[]>([]);
+  const [pastEntries, setPastEntries] = useState<MoodEntry[]>([]);
   const [showPast, setShowPast] = useState(false);
 
   useEffect(() => {
@@ -26,20 +35,19 @@ export default function MoodTrackerPage() {
   }, []);
 
   const handleSave = () => {
-    const existing = JSON.parse(localStorage.getItem('moodTrackerEntries') || '[]');
-    const newEntry = {
+    const newEntry: MoodEntry = {
       mood,
       note,
       color,
       timestamp: new Date().toISOString(),
     };
-    const updated = [...existing, newEntry];
+    const updated = [newEntry, ...pastEntries]; // Newest on top
     localStorage.setItem('moodTrackerEntries', JSON.stringify(updated));
     setPastEntries(updated);
     setSavedMessage('🌟 Mood saved!');
     setMood('');
     setNote('');
-    setColor(presetColors[0]); // Reset to first preset
+    setColor(presetColors[0]);
   };
 
   const handleClear = () => {
@@ -49,38 +57,42 @@ export default function MoodTrackerPage() {
   };
 
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen bg-zinc-900 px-6 py-12 text-white">
+    <div className="flex flex-col items-center min-h-screen bg-zinc-900 px-6 py-12 text-white">
       <h1 className="text-3xl font-bold mb-6 font-nunito">isitfocustime.com</h1>
-      <p className="flex flex-col items-center justify-center text-4xl font-bold mb-4">Mood tracker</p>
+      <p className="text-4xl font-bold mb-8">Mood Tracker</p>
 
+      {/* Mood Input */}
       <input
         value={mood}
         onChange={(e) => setMood(e.target.value)}
-        placeholder="How are you feeling? (e.g., 😊, sad, excited)"
+        placeholder="One word or emoji for your mood"
         className="bg-zinc-800 text-white rounded-lg px-4 py-3 mb-4 w-full max-w-md font-nunito placeholder-zinc-500"
       />
 
-      <input
+      {/* Note Input */}
+      <textarea
         value={note}
         onChange={(e) => setNote(e.target.value)}
-        placeholder="Why do you feel this way? (optional)"
-        className="bg-zinc-800 text-white rounded-lg px-4 py-3 mb-6 w-full max-w-md font-nunito placeholder-zinc-500"
+        placeholder="Optional note about your day"
+        className="bg-zinc-800 text-white rounded-lg px-4 py-3 mb-6 w-full max-w-md font-nunito placeholder-zinc-500 resize-none"
+        rows={3}
       />
 
-      {/* 🎨 Color Palette Picker */}
+      {/* Color Picker */}
       <div className="flex gap-3 mb-6 flex-wrap justify-center">
         {presetColors.map((preset) => (
           <button
             key={preset}
             onClick={() => setColor(preset)}
-            className={`w-8 h-8 rounded-full border-2 ${
-              color === preset ? 'border-green-400' : 'border-transparent'
+            className={`w-8 h-8 rounded-full border-2 transition ${
+              color === preset ? 'border-green-400 scale-110' : 'border-transparent'
             }`}
             style={{ backgroundColor: preset }}
           />
         ))}
       </div>
 
+      {/* Save Button */}
       <button
         onClick={handleSave}
         className="bg-green-500 hover:bg-green-600 text-white rounded-lg px-6 py-3 font-nunito transition mb-4"
@@ -88,10 +100,9 @@ export default function MoodTrackerPage() {
         Save Mood
       </button>
 
-      {savedMessage && (
-        <p className="text-green-300 mt-2 italic">{savedMessage}</p>
-      )}
+      {savedMessage && <p className="text-green-300 mt-2 italic">{savedMessage}</p>}
 
+      {/* Past Moods Toggle */}
       <div className="flex space-x-4 mt-8">
         <button
           onClick={() => setShowPast(!showPast)}
@@ -104,24 +115,27 @@ export default function MoodTrackerPage() {
           onClick={handleClear}
           className="bg-red-500 hover:bg-red-600 px-4 py-2 rounded-lg font-nunito"
         >
-          Clear Saved Moods
+          Clear Moods
         </button>
       </div>
 
+      {/* Past Moods */}
       {showPast && (
-        <div className="mt-8 w-full max-w-md space-y-4">
+        <div className="mt-10 w-full max-w-md space-y-4">
           {pastEntries.length === 0 ? (
             <p className="text-zinc-400 text-center italic">No past moods saved yet.</p>
           ) : (
             pastEntries.map((entry, idx) => (
-              <div key={idx} className="bg-zinc-800 rounded-lg p-4 flex items-center gap-4">
-                {/* 🎨 Show color */}
+              <div
+                key={idx}
+                className="bg-zinc-800 rounded-lg p-4 flex items-start gap-4"
+              >
                 <div
-                  className="w-6 h-6 rounded-full"
+                  className="w-8 h-8 rounded-full mt-1 shrink-0"
                   style={{ backgroundColor: entry.color }}
                 />
                 <div>
-                  <p className="text-xl font-bold">{entry.mood}</p>
+                  <p className="text-xl font-bold font-nunito">{entry.mood}</p>
                   {entry.note && <p className="text-zinc-300 mt-1">{entry.note}</p>}
                   <p className="text-xs text-zinc-400 mt-2">{new Date(entry.timestamp).toLocaleDateString()}</p>
                 </div>
@@ -129,25 +143,7 @@ export default function MoodTrackerPage() {
             ))
           )}
         </div>
-        
       )}
-      <div className="my-8 flex justify-center">
-        <ins
-          className="adsbygoogle"
-          style={{ display: 'inline-block', width: '728px', height: '90px' }}
-          data-ad-client="ca-pub-4813693653154178"
-          data-ad-slot="8997853730"
-          data-ad-format="auto"
-          data-full-width-responsive="true"
-        />
-
-        <ins
-          className="adsbygoogle inline-block md:hidden"
-          style={{ width: '300px', height: '250px' }}
-          data-ad-client="ca-pub-4813693653154178"
-          data-ad-slot="8997853730"
-        />
-      </div>
     </div>
   );
 }
