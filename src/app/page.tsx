@@ -110,13 +110,13 @@ export default function HomePage() {
         <BreatheTimer />
       ) : (
         <>
-          <h1 className={`${nunito.className} text-4xl font-bold mb-4`}>isitfocustime.com</h1>
+          <h1 className={`${nunito.className}text-3xl font-bold mb-2`}>isitfocustime.com</h1>
           <p className="text-xl mb-2 text-center">{quote}</p>
-          {!isRunning && <p className="text-sm text-zinc-400 mb-4">{getTimeSnark()}</p>}
+          {!isRunning && <p className="text-4xl font-bold">{getTimeSnark()}</p>}
 
           {!isRunning && (
-            <div className="mb-4 flex flex-col items-center">
-              <label className="text-sm font-medium mb-2">Choose your focus time (minutes):</label>
+            <div className="flex flex-col items-center">
+              <label className="text-sm text-zinc-400 mt-2 mb-2">Choose your focus time (minutes):</label>
               <input
                 type="number"
                 min={1}
@@ -149,21 +149,21 @@ export default function HomePage() {
           {!isRunning && (
             <button
               onClick={startBreatheMode}
-              className="px-6 py-2 bg-blue-500 hover:bg-blue-600 text-white rounded-lg mb-4 transition"
+              className="w-full bg-blue-500 hover:bg-blue-600 text-white rounded-lg mb-4 transition"
             >
               Start 30-Second Breathe Reset
             </button>
           )}
 
           {!isRunning && (
-            <Link href="/meditation-player" className="text-green-400 hover:underline mb-6">
+            <Link href="/meditation-player" className="w-full text-green-400 hover:underline mb-6">
               Start a Meditation Session →
             </Link>
           )}
 
           {!isRunning && (
             <div className="mt-2 text-sm">
-              <label className="flex items-center gap-2">
+              <label className="w-full flex items-center gap-2">
                 <input
                   type="checkbox"
                   checked={isPomodoro}
