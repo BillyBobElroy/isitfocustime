@@ -110,13 +110,12 @@ export default function Home() {
   };
 
   return (
-    <main className="flex flex-col items-center justify-center min-h-screen bg-zinc-900 text-white px-4">
+    <main className="flex flex-col items-center justify-center min-h-screen bg-zinc-900 text-white px-6 py-12"> 
       {isBreathing ? (
         <BreatheTimer />
       ) : (
         <>
           <h1 className={`${nunito.className} text-4xl font-bold mb-4`}>isitfocustime.com</h1>
-          <div className="max-w-md w-full space-y-8">
           <p className="text-xl mb-2 text-center">{quote}</p>
           {!isRunning && <p className="text-sm text-zinc-400 mb-4">{getTimeSnark()}</p>}
   
@@ -199,7 +198,6 @@ export default function Home() {
               data-ad-client="ca-pub-4813693653154178"
               data-ad-slot="8997853730"
             />
-          </div>
           </div>
           </>
       )}
