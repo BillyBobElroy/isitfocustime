@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
+import Link from 'next/link';
 import { Nunito } from 'next/font/google';
 import { EmbedBlock } from '@/components/EmbedBlock';
 import BreatheTimer from '@/components/BreatheTimer';
@@ -151,8 +152,6 @@ export default function Home() {
               Start Focus Session
             </button>
           )}
-
-          {!isRunning && <MeditationPlayer />}
   
           {!isRunning && !isBreathing && (
             <button
@@ -162,6 +161,10 @@ export default function Home() {
               Start 30-Second Breathe Reset
             </button>
           )}
+
+          <Link href="/meditation-player" className="text-green-400 hover:underline">
+              Start a Meditation Session →
+          </Link>
   
           {!isRunning && (
             <div className="mt-4 text-sm">
