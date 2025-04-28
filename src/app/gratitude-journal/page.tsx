@@ -66,7 +66,7 @@ useEffect(() => {
         <div className="text-center">
           <h1 className="text-3xl font-bold mb-2">isitfocustime.com</h1>
           <p className="text-4xl font-bold">Gratitude Journal</p>
-          <p className="text-sm text-zinc-400 mt-2">Capture 1-5 things you're grateful for daily 🌟</p>
+          <p className="text-sm text-zinc-400 mt-2 mb-2">Capture 1-5 things you're grateful for daily 🌟</p>
           <div className="bg-zinc-800 text-zinc-300 italic text-center rounded-lg p-4 mb-8 shadow">
           "{quote}"
           </div>
