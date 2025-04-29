@@ -11,53 +11,69 @@ const nunito = Nunito({
 });
 
 export const metadata: Metadata = {
-  title: 'isitfocustime – Focus & Mindfulness Tools for Better Productivity',
-  description: 'A minimalist focus and mindfulness platform. Start 25-minute focus sessions, 5-minute meditations, track moods, and journal gratitude — all distraction-free. Boost your productivity and mental clarity naturally.',
-  openGraph: {
-    title: 'isitfocustime – Focus Timer, Meditation, Mood Tracker & More',
-    description: 'Focus deeper with a 25-minute timer, meditation mode, mood tracker, and gratitude journal. Minimalist. Free. No distractions.',  
-    images: ['/og-image.png'],
-  },
+  title: 'isitfocustime – Focus, Mindfulness, Meditation & Productivity Tools',
+  description: 'Use our simple focus timer, guided breathing exercises, gratitude journal, and mood tracker to boost your productivity and mental wellbeing — all distraction-free and ad-free.',
   keywords: [
     'focus timer online',
-    '25 minute focus timer',
-    '5 minute meditation timer',
-    'simple pomodoro timer',
-    'minimalist productivity tools',
-    'focus time meme',
-    'daily gratitude journal templates free',
-    'gratitude journal templates free',
-    'free online mood tracker',
-    'best 30 second breathe timers free',
-    'best 30 second focus timers free',
-    'focus and mindfulness tools free',
-    'online breathing exercise timer',
-    'meditation timer with calming background',
-    'daily mood tracker free tool',
-    'gratitude and mood journaling app',
-    'calm down timers online free',
-    'focus apps without ads',
-    'relaxation breathing bubble online',
-    'pomodoro alternative for ADHD focus',
-    'simple 5-minute meditation practice',
-    'guided breathing exercise online',
-    'mood journal templates printable free',
-    'improve focus and productivity naturally',
-    'habit trackers for focus and wellness',
+    '25 minute focus session',
+    'simple pomodoro alternative',
+    'minimalist productivity app',
+    'daily gratitude journal template',
+    'mood tracking app free',
+    'online meditation timer',
+    'breathing exercise timer',
+    'mental wellbeing tools free',
+    'habit tracker online',
+    'calm breathing bubble',
+    'adhd focus timers',
+    'free mindfulness app',
+    'focus tools without ads',
+    'relaxation timers',
+    'daily mood log',
+    'gratitude app no login',
+    '5 minute meditation session',
+    'guided breathing timer free',
+    'productive study timer',
+    'build positive habits',
+    'self improvement toolkit',
   ],
+  openGraph: {
+    title: 'isitfocustime – Free Focus, Meditation, and Mindfulness Tools',
+    description: 'Boost focus and mental clarity naturally. Free tools: 25-minute timer, guided breathing, gratitude journal, mood tracker, and habit builder.',
+    url: 'https://isitfocustime.com', 
+    siteName: 'isitfocustime.com',
+    images: [
+      {
+        url: '/og-image.png', // customize later if needed
+        width: 1200,
+        height: 630,
+        alt: 'isitfocustime – Focus and Mindfulness Platform',
+      },
+    ],
+    type: 'website',
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'isitfocustime – Boost Focus and Calm Your Mind',
+    description: 'Minimalist focus, mindfulness, and productivity tools. Start a 25-minute focus session, a 5-minute meditation, or track gratitude and mood — distraction-free.',
+    images: ['/og-image.png'],
+  },
   icons: {
     icon: '/favicon.ico',
   },
+  metadataBase: new URL('https://isitfocustime.com'), // 📦 (optional but good for absolute URL building)
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <>
-    <Navbar />
     <html lang="en">
-      <body className={nunito.className}>{children}</body>
-    </html>
-  <Footer />
+      <body className={nunito.className}>
+        <Navbar />
+        {children}
+        <Footer />
+      </body>
+  </html>
   </>
   );
 }

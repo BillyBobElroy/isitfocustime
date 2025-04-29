@@ -1,7 +1,6 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import Footer from '@/components/Footer';
 
 export default function GratitudeJournal() {
   const [gratitudes, setGratitudes] = useState(['']);
