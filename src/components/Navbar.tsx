@@ -35,75 +35,71 @@ export default function Navbar() {
           Focus Timer
         </Link>
 
-        {/* Timers Dropdown */}
-        <div
-          className="relative"
-          onMouseEnter={() => handleMouseEnter('timer')}
-          onMouseLeave={handleMouseLeave}
-        >
-          <button className="hover:text-green-400 transition flex items-center gap-1">
-            Timers
-            <span
-              className={`transform transition-transform ${
-                hoveredDropdown === 'timer' ? 'rotate-180' : 'rotate-0'
-              }`}
-            >
-              ▼
-            </span>
-          </button>
+{/* Timers Dropdown */}
+<div
+  className="relative group"
+  onMouseEnter={() => handleMouseEnter('timer')}
+  onMouseLeave={handleMouseLeave}
+>
+  <button className="hover:text-green-400 transition flex items-center gap-1">
+    Timers
+    <span
+      className={`transform transition-transform ${
+        hoveredDropdown === 'timer' ? 'rotate-180' : 'rotate-0'
+      }`}
+    >
+      ▼
+    </span>
+  </button>
 
-          {hoveredDropdown === 'timer' && (
-            <div className="absolute right-0 mt-2 w-48 bg-zinc-800 rounded-lg shadow-lg py-2 z-50">
-              <Link
-                href="/meditation-player"
-                className="block px-4 py-2 hover:bg-zinc-700"
-              >
-                Meditation Player
-              </Link>
-            </div>
-          )}
-        </div>
+  {/* Make the dropdown a child inside the same container */}
+  <div
+    className={`absolute right-0 mt-2 w-48 bg-zinc-800 rounded-lg shadow-lg py-2 z-50 transition-all duration-200 ${
+      hoveredDropdown === 'timer' ? 'opacity-100 visible' : 'opacity-0 invisible'
+    }`}
+  >
+    <Link
+      href="/meditation-player"
+      className="block px-4 py-2 hover:bg-zinc-700"
+    >
+      Meditation Player
+    </Link>
+  </div>
+</div>
 
-        {/* Journals & Trackers Dropdown */}
-        <div
-          className="relative"
-          onMouseEnter={() => handleMouseEnter('tools')}
-          onMouseLeave={handleMouseLeave}
-        >
-          <button className="hover:text-green-400 transition flex items-center gap-1">
-            Journals & Trackers
-            <span
-              className={`transform transition-transform ${
-                hoveredDropdown === 'tools' ? 'rotate-180' : 'rotate-0'
-              }`}
-            >
-              ▼
-            </span>
-          </button>
+ {/* Journals & Trackers Dropdown */}
+<div
+  className="relative group"
+  onMouseEnter={() => handleMouseEnter('tools')}
+  onMouseLeave={handleMouseLeave}
+>
+  <button className="hover:text-green-400 transition flex items-center gap-1">
+    Journals & Trackers
+    <span
+      className={`transform transition-transform ${
+        hoveredDropdown === 'tools' ? 'rotate-180' : 'rotate-0'
+      }`}
+    >
+      ▼
+    </span>
+  </button>
 
-          {hoveredDropdown === 'tools' && (
-            <div className="absolute right-0 mt-2 w-48 bg-zinc-800 rounded-lg shadow-lg py-2 z-50">
-              <Link
-                href="/habit-tracker"
-                className="block px-4 py-2 hover:bg-zinc-700"
-              >
-                Habit Tracker
-              </Link>
-              <Link
-                href="/mood-tracker"
-                className="block px-4 py-2 hover:bg-zinc-700"
-              >
-                Mood Tracker
-              </Link>
-              <Link
-                href="/gratitude-journal"
-                className="block px-4 py-2 hover:bg-zinc-700"
-              >
-                Gratitude Journal
-              </Link>
-            </div>
-          )}
-        </div>
+  <div
+    className={`absolute right-0 mt-2 w-48 bg-zinc-800 rounded-lg shadow-lg py-2 z-50 transition-all duration-200 ${
+      hoveredDropdown === 'tools' ? 'opacity-100 visible' : 'opacity-0 invisible'
+    }`}
+  >
+    <Link href="/habit-tracker" className="block px-4 py-2 hover:bg-zinc-700">
+      Habit Tracker
+    </Link>
+    <Link href="/mood-tracker" className="block px-4 py-2 hover:bg-zinc-700">
+      Mood Tracker
+    </Link>
+    <Link href="/gratitude-journal" className="block px-4 py-2 hover:bg-zinc-700">
+      Gratitude Journal
+    </Link>
+  </div>
+</div>
 
         <Link href="/blog" className={linkStyle('/blog')}>
           Blog
