@@ -10,15 +10,21 @@ type Habit = {
   completedToday: boolean;
   datesCompleted: string[];
   reminderTime?: string;
-  priority: 'High' | 'Medium' | 'Low'; // ✅ new priority field
+  priority: 'High' | 'Medium' | 'Low';
+  days: string[];
 };
+
+const allDays = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
 
 export default function HabitTrackerPage() {
   const [habits, setHabits] = useState<Habit[]>([]);
   const [newHabit, setNewHabit] = useState('');
   const [newReminderTime, setNewReminderTime] = useState('');
   const [newPriority, setNewPriority] = useState<'High' | 'Medium' | 'Low'>('Medium');
+  const [newDays, setNewDays] = useState<string[]>(allDays);
   const [selectedHabit, setSelectedHabit] = useState<string>('');
+
+  const todayName = new Date().toLocaleDateString('en-US', { weekday: 'long' });
 
   useEffect(() => {
     const stored = localStorage.getItem('habit-tracker-habits');
@@ -38,10 +44,12 @@ export default function HabitTrackerPage() {
       datesCompleted: [], 
       reminderTime: newReminderTime || undefined,
       priority: newPriority,
+      days: newDays.length ? newDays : allDays,
     }]);
     setNewHabit('');
     setNewReminderTime('');
     setNewPriority('Medium');
+    setNewDays(allDays);
   };
 
   const handleMarkComplete = (index: number) => {
@@ -81,6 +89,16 @@ export default function HabitTrackerPage() {
     setHabits(updated);
   };
 
+  const handleDayToggle = (day: string) => {
+    if (newDays.includes(day)) {
+      setNewDays(newDays.filter(d => d !== day));
+    } else {
+      setNewDays([...newDays, day]);
+    }
+  };
+
+  const todaysHabits = habits.filter(habit => habit.days.includes(todayName));
+
   return (
     <div className="flex flex-col items-center justify-center min-h-screen bg-zinc-900 text-white p-6">
       <h1 className="text-4xl font-bold mb-6">Habit Tracker</h1>
@@ -108,6 +126,21 @@ export default function HabitTrackerPage() {
           <option value="Medium">💪 Medium Priority</option>
           <option value="Low">🌱 Low Priority</option>
         </select>
+
+        {/* Days of the week selector */}
+        <div className="flex flex-wrap gap-2">
+          {allDays.map((day) => (
+            <label key={day} className="flex items-center gap-2 text-xs">
+              <input
+                type="checkbox"
+                checked={newDays.includes(day)}
+                onChange={() => handleDayToggle(day)}
+              />
+              {day}
+            </label>
+          ))}
+        </div>
+
         <button onClick={handleAddHabit} className="bg-green-500 px-4 py-2 rounded-lg hover:bg-green-600">
           Add Habit
         </button>
@@ -115,10 +148,10 @@ export default function HabitTrackerPage() {
 
       {/* 🧱 Habit List */}
       <div className="w-full max-w-md space-y-4">
-        {habits.length === 0 ? (
-          <p className="text-zinc-400 italic text-center">No habits yet. Start building!</p>
+        {todaysHabits.length === 0 ? (
+          <p className="text-zinc-400 italic text-center">No habits scheduled for today!</p>
         ) : (
-          habits.map((habit, idx) => (
+          todaysHabits.map((habit, idx) => (
             <div key={idx} className="flex flex-col gap-2 bg-zinc-800 p-4 rounded-lg">
               <div className="flex items-center justify-between">
                 <div className="flex flex-col">
@@ -140,6 +173,8 @@ export default function HabitTrackerPage() {
                   {habit.reminderTime && (
                     <p className="text-xs text-zinc-400">⏰ Reminder at {habit.reminderTime}</p>
                   )}
+                  {/* Show scheduled days */}
+                  <p className="text-xs text-zinc-500 mt-1">📅 {habit.days.join(' • ')}</p>
                 </div>
                 <div className="flex flex-col gap-2">
                   {!habit.completedToday && (
