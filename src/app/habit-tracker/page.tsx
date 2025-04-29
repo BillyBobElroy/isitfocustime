@@ -1,8 +1,8 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { Calendar } from '@/components/Calendar'; // Your Calendar component!
-import { DailyReminder } from '@/components/DailyReminder'; // Your Reminder component!
+import { Calendar } from '@/components/Calendar';
+import { DailyReminder } from '@/components/DailyReminder';
 
 type Habit = {
   name: string;
@@ -10,12 +10,14 @@ type Habit = {
   completedToday: boolean;
   datesCompleted: string[];
   reminderTime?: string;
+  priority: 'High' | 'Medium' | 'Low'; // ✅ new priority field
 };
 
 export default function HabitTrackerPage() {
   const [habits, setHabits] = useState<Habit[]>([]);
   const [newHabit, setNewHabit] = useState('');
   const [newReminderTime, setNewReminderTime] = useState('');
+  const [newPriority, setNewPriority] = useState<'High' | 'Medium' | 'Low'>('Medium');
   const [selectedHabit, setSelectedHabit] = useState<string>('');
 
   useEffect(() => {
@@ -29,9 +31,17 @@ export default function HabitTrackerPage() {
 
   const handleAddHabit = () => {
     if (!newHabit.trim()) return;
-    setHabits([...habits, { name: newHabit.trim(), streak: 0, completedToday: false, datesCompleted: [], reminderTime: newReminderTime || undefined }]);
+    setHabits([...habits, { 
+      name: newHabit.trim(), 
+      streak: 0, 
+      completedToday: false, 
+      datesCompleted: [], 
+      reminderTime: newReminderTime || undefined,
+      priority: newPriority,
+    }]);
     setNewHabit('');
     setNewReminderTime('');
+    setNewPriority('Medium');
   };
 
   const handleMarkComplete = (index: number) => {
@@ -59,6 +69,18 @@ export default function HabitTrackerPage() {
     setHabits(updated);
   };
 
+  const handleNameChange = (index: number, newName: string) => {
+    const updated = [...habits];
+    updated[index].name = newName;
+    setHabits(updated);
+  };
+
+  const handlePriorityChange = (index: number, newPriority: 'High' | 'Medium' | 'Low') => {
+    const updated = [...habits];
+    updated[index].priority = newPriority;
+    setHabits(updated);
+  };
+
   return (
     <div className="flex flex-col items-center justify-center min-h-screen bg-zinc-900 text-white p-6">
       <h1 className="text-4xl font-bold mb-6">Habit Tracker</h1>
@@ -77,6 +99,15 @@ export default function HabitTrackerPage() {
           onChange={(e) => setNewReminderTime(e.target.value)}
           className="bg-zinc-800 text-white px-4 py-2 rounded-lg"
         />
+        <select
+          value={newPriority}
+          onChange={(e) => setNewPriority(e.target.value as 'High' | 'Medium' | 'Low')}
+          className="bg-zinc-800 text-white px-4 py-2 rounded-lg"
+        >
+          <option value="High">🔥 High Priority</option>
+          <option value="Medium">💪 Medium Priority</option>
+          <option value="Low">🌱 Low Priority</option>
+        </select>
         <button onClick={handleAddHabit} className="bg-green-500 px-4 py-2 rounded-lg hover:bg-green-600">
           Add Habit
         </button>
@@ -90,39 +121,51 @@ export default function HabitTrackerPage() {
           habits.map((habit, idx) => (
             <div key={idx} className="flex flex-col gap-2 bg-zinc-800 p-4 rounded-lg">
               <div className="flex items-center justify-between">
-                <div>
-                  <p className="font-bold">{habit.name}</p>
+                <div className="flex flex-col">
+                  <input
+                    value={habit.name}
+                    onChange={(e) => handleNameChange(idx, e.target.value)}
+                    className="bg-zinc-700 px-2 py-1 rounded text-white mb-2 text-sm"
+                  />
+                  <select
+                    value={habit.priority}
+                    onChange={(e) => handlePriorityChange(idx, e.target.value as 'High' | 'Medium' | 'Low')}
+                    className="bg-zinc-700 px-2 py-1 rounded text-white text-xs mb-2"
+                  >
+                    <option value="High">🔥 High</option>
+                    <option value="Medium">💪 Medium</option>
+                    <option value="Low">🌱 Low</option>
+                  </select>
                   <p className="text-sm text-zinc-400">🔥 Streak: {habit.streak}</p>
                   {habit.reminderTime && (
                     <p className="text-xs text-zinc-400">⏰ Reminder at {habit.reminderTime}</p>
                   )}
                 </div>
-                <div className="flex gap-2">
+                <div className="flex flex-col gap-2">
                   {!habit.completedToday && (
                     <button
                       onClick={() => handleMarkComplete(idx)}
-                      className="bg-blue-500 px-3 py-1 rounded hover:bg-blue-600 text-sm"
+                      className="bg-blue-500 px-3 py-1 rounded hover:bg-blue-600 text-xs"
                     >
                       Complete
                     </button>
                   )}
                   <button
                     onClick={() => setSelectedHabit(habit.name)}
-                    className="bg-purple-500 px-3 py-1 rounded hover:bg-purple-600 text-sm"
+                    className="bg-purple-500 px-3 py-1 rounded hover:bg-purple-600 text-xs"
                   >
                     Calendar
                   </button>
                   <button
                     onClick={() => handleDeleteHabit(idx)}
-                    className="bg-red-500 px-3 py-1 rounded hover:bg-red-600 text-sm"
+                    className="bg-red-500 px-3 py-1 rounded hover:bg-red-600 text-xs"
                   >
                     Delete
                   </button>
                 </div>
               </div>
 
-              {/* Allow editing reminder time later */}
-              <label className="block text-xs text-zinc-400">Daily Reminder: </label>
+              {/* 🕒 Reminder Edit */}
               <input
                 type="time"
                 value={habit.reminderTime || ''}
@@ -147,6 +190,9 @@ export default function HabitTrackerPage() {
           </button>
         </div>
       )}
+
+      {/* 🔔 Daily Reminder Modal */}
+      <DailyReminder habits={habits} />
     </div>
   );
 }
