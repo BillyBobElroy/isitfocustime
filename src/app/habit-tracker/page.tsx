@@ -19,23 +19,6 @@ export default function HabitTrackerPage() {
   const [selectedHabit, setSelectedHabit] = useState<string>('');
 
   useEffect(() => {
-    const checkReminders = () => {
-      const now = new Date();
-      const currentTime = now.toTimeString().slice(0,5); // "HH:MM"
-  
-      habits.forEach((habit) => {
-        if (habit.reminderTime === currentTime) {
-          alert(`🔔 Reminder: Time to work on "${habit.name}"!`);
-        }
-      });
-    };
-  
-    const interval = setInterval(checkReminders, 60000); // Check every minute
-  
-    return () => clearInterval(interval);
-  }, [habits]);
-
-  useEffect(() => {
     const stored = localStorage.getItem('habit-tracker-habits');
     if (stored) setHabits(JSON.parse(stored));
   }, []);
