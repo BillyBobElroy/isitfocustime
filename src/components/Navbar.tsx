@@ -3,18 +3,25 @@
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { useState } from 'react';
-import { Menu, X } from 'lucide-react'; // You can swap icons if you want 
+import { Menu, X } from 'lucide-react';
 
 export default function Navbar() {
   const pathname = usePathname();
-  const [timerMenuOpen, setTimerMenuOpen] = useState(false);
-  const [toolsMenuOpen, setToolsMenuOpen] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [hoveredDropdown, setHoveredDropdown] = useState<string | null>(null);
 
   const linkStyle = (path: string) =>
     `hover:text-green-400 transition ${
       pathname === path ? 'underline underline-offset-4 text-green-400' : ''
     }`;
+
+  const handleMouseEnter = (menu: string) => {
+    setHoveredDropdown(menu);
+  };
+
+  const handleMouseLeave = () => {
+    setHoveredDropdown(null);
+  };
 
   return (
     <nav className="w-full bg-zinc-900 text-white py-4 px-6 shadow-md flex justify-between items-center relative">
@@ -28,29 +35,28 @@ export default function Navbar() {
           Focus Timer
         </Link>
 
-        {/* Dropdown Trigger */}
-        <div className="relative">
-          <button
-            onClick={() => setTimerMenuOpen(!timerMenuOpen)}
-            className="hover:text-green-400 transition flex items-center gap-1"
-          >
+        {/* Timers Dropdown */}
+        <div
+          className="relative"
+          onMouseEnter={() => handleMouseEnter('timer')}
+          onMouseLeave={handleMouseLeave}
+        >
+          <button className="hover:text-green-400 transition flex items-center gap-1">
             Timers
             <span
               className={`transform transition-transform ${
-                timerMenuOpen ? 'rotate-180' : 'rotate-0'
+                hoveredDropdown === 'timer' ? 'rotate-180' : 'rotate-0'
               }`}
             >
               ▼
             </span>
           </button>
 
-          {/* Dropdown Menu */}
-          {timerMenuOpen && (
+          {hoveredDropdown === 'timer' && (
             <div className="absolute right-0 mt-2 w-48 bg-zinc-800 rounded-lg shadow-lg py-2 z-50">
               <Link
                 href="/meditation-player"
                 className="block px-4 py-2 hover:bg-zinc-700"
-                onClick={() => setTimerMenuOpen(false)}
               >
                 Meditation Player
               </Link>
@@ -58,36 +64,40 @@ export default function Navbar() {
           )}
         </div>
 
-                {/* Dropdown Trigger */}
-                <div className="relative">
-          <button
-            onClick={() => setToolsMenuOpen(!toolsMenuOpen)}
-            className="hover:text-green-400 transition flex items-center gap-1"
-          >
+        {/* Journals & Trackers Dropdown */}
+        <div
+          className="relative"
+          onMouseEnter={() => handleMouseEnter('tools')}
+          onMouseLeave={handleMouseLeave}
+        >
+          <button className="hover:text-green-400 transition flex items-center gap-1">
             Journals & Trackers
             <span
               className={`transform transition-transform ${
-                toolsMenuOpen ? 'rotate-180' : 'rotate-0'
+                hoveredDropdown === 'tools' ? 'rotate-180' : 'rotate-0'
               }`}
             >
               ▼
             </span>
           </button>
 
-          {/* Dropdown Menu */}
-          {toolsMenuOpen && (
+          {hoveredDropdown === 'tools' && (
             <div className="absolute right-0 mt-2 w-48 bg-zinc-800 rounded-lg shadow-lg py-2 z-50">
+              <Link
+                href="/habit-tracker"
+                className="block px-4 py-2 hover:bg-zinc-700"
+              >
+                Habit Tracker
+              </Link>
               <Link
                 href="/mood-tracker"
                 className="block px-4 py-2 hover:bg-zinc-700"
-                onClick={() => setToolsMenuOpen(false)}
               >
                 Mood Tracker
               </Link>
               <Link
                 href="/gratitude-journal"
                 className="block px-4 py-2 hover:bg-zinc-700"
-                onClick={() => setToolsMenuOpen(false)}
               >
                 Gratitude Journal
               </Link>
@@ -118,6 +128,9 @@ export default function Navbar() {
           </Link>
           <Link href="/meditation-player" className={linkStyle('/meditation-player')} onClick={() => setMobileMenuOpen(false)}>
             Meditation Player
+          </Link>
+          <Link href="/habit-tracker" className={linkStyle('/habit-tracker')} onClick={() => setMobileMenuOpen(false)}>
+            Habit Tracker
           </Link>
           <Link href="/mood-tracker" className={linkStyle('/mood-tracker')} onClick={() => setMobileMenuOpen(false)}>
             Mood Tracker
