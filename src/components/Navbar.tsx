@@ -98,6 +98,12 @@ export default function Navbar() {
     <Link href="/gratitude-journal" className="block px-4 py-2 hover:bg-zinc-700">
       Gratitude Journal
     </Link>
+    <Link
+      href="/5-minute-journal"
+      className="block px-4 py-2 hover:bg-zinc-700"
+    >
+      5-Minute Journal
+    </Link>
   </div>
 </div>
 
