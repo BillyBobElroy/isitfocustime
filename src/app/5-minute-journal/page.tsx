@@ -1,110 +1,82 @@
 'use client';
 
-import { useState, useEffect } from 'react';
-import { Calendar } from '@/components/Calendar'; // We'll create this!
+import { useEffect, useState } from 'react';
 
-export default function HabitTrackerPage() {
-  const [habits, setHabits] = useState<{ name: string; streak: number; completedToday: boolean; completedDates: string[] }[]>([]);
-  const [newHabit, setNewHabit] = useState('');
-  const [selectedHabit, setSelectedHabit] = useState<string>('');
+const morningPrompts = [
+  'What are you grateful for today?',
+  'What is your intention for the day?',
+  'What would make today great?'
+];
+
+const eveningPrompts = [
+  'What went well today?',
+  'What are you proud of today?',
+  'How can you improve tomorrow?'
+];
+
+export default function JournalPage() {
+  const [isMorning, setIsMorning] = useState(true);
+  const [entries, setEntries] = useState<string[]>(['', '', '']);
+  const [saved, setSaved] = useState(false);
 
   useEffect(() => {
-    const stored = localStorage.getItem('habit-tracker-habits');
-    if (stored) setHabits(JSON.parse(stored));
+    const hour = new Date().getHours();
+    setIsMorning(hour < 17); // before 5pm = morning journal, else evening
+
+    const key = hour < 17 ? 'journal-morning' : 'journal-evening';
+    const stored = localStorage.getItem(key);
+    if (stored) setEntries(JSON.parse(stored));
   }, []);
 
-  useEffect(() => {
-    localStorage.setItem('habit-tracker-habits', JSON.stringify(habits));
-  }, [habits]);
-
-  const handleAddHabit = () => {
-    if (!newHabit.trim()) return;
-    setHabits([...habits, { name: newHabit.trim(), streak: 0, completedToday: false, completedDates: [] }]);
-    setNewHabit('');
+  const handleChange = (index: number, value: string) => {
+    const updated = [...entries];
+    updated[index] = value;
+    setEntries(updated);
   };
 
-  const handleMarkComplete = (index: number) => {
-    const today = new Date().toISOString().split('T')[0];
-    const updated = [...habits];
-    if (!updated[index].completedDates.includes(today)) {
-      updated[index].streak += 1;
-      updated[index].completedDates.push(today);
-    }
-    updated[index].completedToday = true;
-    setHabits(updated);
+  const handleSave = () => {
+    const key = isMorning ? 'journal-morning' : 'journal-evening';
+    localStorage.setItem(key, JSON.stringify(entries));
+    setSaved(true);
+    setTimeout(() => setSaved(false), 3000);
   };
 
-  const handleDeleteHabit = (index: number) => {
-    const updated = [...habits];
-    updated.splice(index, 1);
-    setHabits(updated);
-    if (selectedHabit === habits[index]?.name) setSelectedHabit('');
+  const greeting = () => {
+    const hour = new Date().getHours();
+    if (hour < 12) return 'Good Morning';
+    if (hour < 17) return 'Good Afternoon';
+    return 'Good Evening';
   };
+
+  const prompts = isMorning ? morningPrompts : eveningPrompts;
 
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen bg-zinc-900 text-white p-6">
-      <h1 className="text-4xl font-bold mb-6">Habit Tracker</h1>
+    <main className="min-h-screen bg-zinc-900 text-white px-4 py-12 flex flex-col items-center font-nunito">
+      <h1 className="text-4xl font-bold mb-2">5-Minute Journal</h1>
+      <p className="text-xl text-white mb-6">{greeting()}, take a moment to reflect.</p>
 
-      <div className="flex gap-2 mb-6">
-        <input
-          value={newHabit}
-          onChange={(e) => setNewHabit(e.target.value)}
-          placeholder="Add new habit"
-          className="bg-zinc-800 px-4 py-2 rounded-lg"
-        />
-        <button onClick={handleAddHabit} className="bg-green-500 px-4 py-2 rounded-lg hover:bg-green-600">Add</button>
+      <div className="w-full max-w-xl space-y-6">
+        {prompts.map((prompt, idx) => (
+          <div key={idx}>
+            <label className="block font-semibold mb-2">{prompt}</label>
+            <textarea
+              rows={3}
+              value={entries[idx]}
+              onChange={(e) => handleChange(idx, e.target.value)}
+              className="w-full rounded-lg bg-zinc-800 border border-zinc-300 p-3 focus:outline-none focus:ring-2 focus:ring-blue-300"
+            />
+          </div>
+        ))}
       </div>
 
-      <div className="w-full max-w-md space-y-4">
-        {habits.length === 0 ? (
-          <p className="text-zinc-400 italic text-center">No habits yet. Start building!</p>
-        ) : (
-          habits.map((habit, idx) => (
-            <div key={idx} className="flex items-center justify-between bg-zinc-800 p-4 rounded-lg">
-              <div>
-                <p className="font-bold">{habit.name}</p>
-                <p className="text-sm text-zinc-400">🔥 Streak: {habit.streak}</p>
-              </div>
-              <div className="flex gap-2">
-                {!habit.completedToday && (
-                  <button
-                    onClick={() => handleMarkComplete(idx)}
-                    className="bg-blue-500 px-3 py-1 rounded hover:bg-blue-600 text-sm"
-                  >
-                    Complete
-                  </button>
-                )}
-                <button
-                  onClick={() => setSelectedHabit(habit.name)}
-                  className="bg-purple-500 px-3 py-1 rounded hover:bg-purple-600 text-sm"
-                >
-                  Calendar
-                </button>
-                <button
-                  onClick={() => handleDeleteHabit(idx)}
-                  className="bg-red-500 px-3 py-1 rounded hover:bg-red-600 text-sm"
-                >
-                  Delete
-                </button>
-              </div>
-            </div>
-          ))
-        )}
-      </div>
+      <button
+        onClick={handleSave}
+        className="mt-8 bg-green-500 hover:bg-green-600 text-white font-semibold px-6 py-3 rounded-xl"
+      >
+        Save Entry
+      </button>
 
-      {/* 🎯 Habit Completion Calendar */}
-      {selectedHabit && (
-        <div className="mt-10 w-full max-w-md">
-          <h2 className="text-2xl font-bold mb-4 text-center">{selectedHabit} Completion</h2>
-          <Calendar completedDates={habits.find(h => h.name === selectedHabit)?.completedDates || []} />
-          <button
-            onClick={() => setSelectedHabit('')}
-            className="mt-6 bg-zinc-700 px-4 py-2 rounded-lg w-full hover:bg-zinc-600"
-          >
-            Close Calendar
-          </button>
-        </div>
-      )}
-    </div>
+      {saved && <p className="mt-4 text-green-600">Your journal entry was saved!</p>}
+    </main>
   );
 }

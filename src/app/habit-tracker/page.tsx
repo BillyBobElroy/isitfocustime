@@ -110,7 +110,7 @@ export default function HabitTrackerPage() {
           value={newHabit}
           onChange={(e) => setNewHabit(e.target.value)}
           placeholder="Add new habit"
-          className="bg-zinc-800 px-4 py-2 rounded-lg"
+          className="bg-zinc-800 px-4 py-2 rounded-lg focus:ring-blue-300"
         />
         <input
           type="time"
