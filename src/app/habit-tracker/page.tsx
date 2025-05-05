@@ -3,6 +3,7 @@
 import { useState, useEffect } from 'react';
 import { Calendar } from '@/components/Calendar';
 import { DailyReminder } from '@/components/DailyReminder';
+import Link from 'next/link';
 
 type Habit = {
   name: string;
@@ -145,6 +146,12 @@ export default function HabitTrackerPage() {
           Add Habit
         </button>
       </div>
+
+      <div className="mb-4">
+      <Link href="/mood-tracker" className="text-green-400 hover:underline mt-4 mb-4">
+          Track Your Mood Today →
+        </Link>
+        </div>
 
       {/* 🧱 Habit List */}
       <div className="w-full max-w-md space-y-4">

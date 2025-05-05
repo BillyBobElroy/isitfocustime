@@ -42,7 +42,7 @@ export default function Navbar() {
   onMouseLeave={handleMouseLeave}
 >
   <button className="hover:text-green-400 transition flex items-center gap-1">
-    Timers
+    Focus
     <span
       className={`transform transition-transform ${
         hoveredDropdown === 'timer' ? 'rotate-180' : 'rotate-0'
@@ -74,7 +74,7 @@ export default function Navbar() {
   onMouseLeave={handleMouseLeave}
 >
   <button className="hover:text-green-400 transition flex items-center gap-1">
-    Journals & Trackers
+    Mental Wellness
     <span
       className={`transform transition-transform ${
         hoveredDropdown === 'tools' ? 'rotate-180' : 'rotate-0'

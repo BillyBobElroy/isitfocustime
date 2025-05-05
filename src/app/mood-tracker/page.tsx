@@ -10,6 +10,7 @@ import {
   Tooltip,
   Legend,
 } from 'chart.js';
+import Link from 'next/link';
 
 ChartJS.register(BarElement, CategoryScale, LinearScale, Tooltip, Legend);
 
@@ -135,6 +136,12 @@ export default function MoodTrackerPage() {
       >
         Save Mood
       </button>
+
+      <div className="mb-4">
+      <Link href="/habit-tracker" className="text-green-400 hover:underline mt-4 mb-4">
+          Track Your Habits Today →
+        </Link>
+        </div>
 
       {savedMessage && <p className="text-green-300 mt-2 italic">{savedMessage}</p>}
 

@@ -4,7 +4,7 @@ import { useState } from 'react';
 
 export function EmbedBlock() {
   const [copied, setCopied] = useState(false);
-  const embedCode = `<iframe src="https://isitfocus.time/embed" width="100%" height="140" style="border:none;"></iframe>`;
+  const embedCode = `<iframe src="https://isitfocustime.com/embed" width="100%" height="140" style="border:none;"></iframe>`;
 
   const copyToClipboard = async () => {
     try {

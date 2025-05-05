@@ -2,6 +2,7 @@
 
 import { MeditationPlayer } from '@/components/MEditationPlayer';
 import { Nunito } from 'next/font/google';
+import Link from 'next/link';
 
 const nunito = Nunito({
   weight: ['400', '700'],
@@ -18,6 +19,12 @@ export default function MeditationPage() {
       <p className="text-4xl font-bold mb-8">Meditation Timer</p>
 
       <MeditationPlayer />
+
+      <div className="mb-4 mt-4">
+      <Link href="/" className="text-green-400 hover:underline mt-4 mb-4">
+          Start a Focus Session →
+        </Link>
+        </div>
 
       <div className="my-8 flex justify-center">
             <ins
