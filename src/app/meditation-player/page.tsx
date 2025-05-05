@@ -20,11 +20,10 @@ export default function MeditationPage() {
 
       <MeditationPlayer />
 
-      <div className="mb-4 mt-4">
-      <Link href="/" className="text-green-400 hover:underline mt-4 mb-4">
-          Start a Focus Session →
-        </Link>
-        </div>
+      <nav className="text-sm space-x-4 text-center mt-4">
+          <Link href="/" className="text-green-400 hover:underline mb-4">Focus & Breathe Timer</Link>
+          <Link href="/gratitude-journal" className="text-green-400 hover:underline mb-4">Gratitude Journal</Link>
+          </nav>
 
       <div className="my-8 flex justify-center">
             <ins

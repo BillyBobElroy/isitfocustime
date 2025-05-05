@@ -137,11 +137,10 @@ export default function MoodTrackerPage() {
         Save Mood
       </button>
 
-      <div className="mb-4">
-      <Link href="/habit-tracker" className="text-green-400 hover:underline mt-4 mb-4">
-          Track Your Habits Today →
-        </Link>
-        </div>
+      <nav className="text-sm space-x-4">
+          <Link href="/habit-tracker" className="text-green-400 hover:underline mb-4">Habit Tracker</Link>
+          <Link href="/gratitude-journal" className="text-green-400 hover:underline mb-4">Gratitude Journal</Link>
+          </nav>
 
       {savedMessage && <p className="text-green-300 mt-2 italic">{savedMessage}</p>}
 

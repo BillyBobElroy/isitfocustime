@@ -34,20 +34,13 @@ export default function BreatheTimer() {
   const [seconds, setSeconds] = useState(30);
   const [message, setMessage] = useState('');
   const [scale, setScale] = useState(1);
-  const chime = typeof window !== 'undefined' ? new Audio('/sounds/chime.mp3') : null;
-
-  useEffect(() => {
-    if (chime) {
-      chime.currentTime = 0;
-      chime.volume = 0.6;
-      chime.play();
-    }
   
+  useEffect(() => {
     const messageInterval = setInterval(() => {
       const random = Math.floor(Math.random() * calmingMessages.length);
       setMessage(calmingMessages[random]);
     }, 10000);
-  
+
     setMessage(calmingMessages[Math.floor(Math.random() * calmingMessages.length)]);
   
     const countdown = setInterval(() => {
@@ -68,7 +61,6 @@ export default function BreatheTimer() {
       clearInterval(countdown);
       clearInterval(messageInterval);
       clearInterval(pulse);
-      if (chime) chime.pause();
     };
   }, []);
 

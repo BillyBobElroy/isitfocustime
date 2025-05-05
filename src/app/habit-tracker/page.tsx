@@ -147,11 +147,10 @@ export default function HabitTrackerPage() {
         </button>
       </div>
 
-      <div className="mb-4">
-      <Link href="/mood-tracker" className="text-green-400 hover:underline mt-4 mb-4">
-          Track Your Mood Today →
-        </Link>
-        </div>
+      <nav className="text-sm space-x-4 text-center mb-4">
+          <Link href="/mood-tracker" className="text-green-400 hover:underline mb-4">Mood Tracker</Link>
+          <Link href="/gratitude-journal" className="text-green-400 hover:underline mb-4">Gratitude Journal</Link>
+          </nav>
 
       {/* 🧱 Habit List */}
       <div className="w-full max-w-md space-y-4">

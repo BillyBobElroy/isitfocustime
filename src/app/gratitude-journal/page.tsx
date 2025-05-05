@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
+import Link from 'next/link';
 
 export default function GratitudeJournal() {
   const [gratitudes, setGratitudes] = useState(['']);
@@ -109,6 +110,11 @@ useEffect(() => {
         >
           Save Gratitudes
         </button>
+
+        <nav className="text-sm space-x-4 text-center">
+          <Link href="/mood-tracker" className="text-green-400 hover:underline mb-4">Mood Tracker</Link>
+          <Link href="/habit-tracker" className="text-green-400 hover:underline mb-4">Habit Tracker</Link>
+          </nav>
 
         <div className="flex gap-4 mt-4">
           <button

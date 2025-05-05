@@ -23,8 +23,14 @@ export default function HomePage() {
   const [isPomodoro, setIsPomodoro] = useState(false);
   const [isBreak, setIsBreak] = useState(false);
   const [isBreathing, setIsBreathing] = useState(false);
+  const [rounds, setRounds] = useState(0);
+  const [alarm, setAlarm] = useState<HTMLAudioElement | null>(null);
 
-  const alarm = typeof window !== 'undefined' ? new Audio('/sounds/alarm.mp3') : null;
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      setAlarm(new Audio('/sounds/alarm.mp3'));
+    }
+  }, []);
 
   useEffect(() => {
     setSecondsLeft(timeInput * 60);
@@ -32,25 +38,44 @@ export default function HomePage() {
 
   useEffect(() => {
     let timer: NodeJS.Timeout;
-    if (isRunning && secondsLeft > 0) {
-      timer = setInterval(() => {
-        setSecondsLeft((prev) => prev - 1);
-      }, 1000);
-    } else if (isRunning && secondsLeft === 0) {
-      if (alarm) alarm.play();
-
-      if (isPomodoro) {
-        const nextPhase = isBreak ? 'focus' : 'break';
-        setIsBreak(!isBreak);
-        setSecondsLeft(nextPhase === 'focus' ? timeInput * 60 : 5 * 60);
-      } else {
-        setTimeout(() => {
-          router.push('/you-did-it');
-        }, 10000);
+  
+    const handleTimerEnd = async () => {
+      if (alarm) {
+        try {
+          await alarm.play();
+        } catch (err) {
+          console.warn('Playback error:', err);
+        }
       }
+  
+      if (isPomodoro) {
+        const nextRounds = rounds + 1;
+        setRounds(nextRounds);
+  
+        if (!isBreak) {
+          if (nextRounds % 4 === 0) {
+            setSecondsLeft(30 * 60); // Long break
+          } else {
+            setSecondsLeft(5 * 60); // Short break
+          }
+          setIsBreak(true);
+        } else {
+          setSecondsLeft(25 * 60);
+          setIsBreak(false);
+        }
+      } else {
+        setTimeout(() => router.push('/you-did-it'), 10000);
+      }
+    };
+  
+    if (isRunning && secondsLeft > 0) {
+      timer = setInterval(() => setSecondsLeft(prev => prev - 1), 1000);
+    } else if (isRunning && secondsLeft === 0) {
+      handleTimerEnd(); // call async wrapper
     }
+  
     return () => clearInterval(timer);
-  }, [isRunning, secondsLeft, isPomodoro, isBreak, alarm, router]);
+  }, [isRunning, secondsLeft, isPomodoro, isBreak, rounds, alarm, router]);  
 
   useEffect(() => {
     try {
@@ -88,12 +113,22 @@ export default function HomePage() {
   };
 
   const startBreatheMode = () => {
+    const chime = new Audio('/sounds/chime.mp3');
+    chime.volume = 0.6;
+    try {
+      chime.play(); // user gesture-triggered
+    } catch (e) {
+      console.warn('Autoplay blocked:', e);
+    }
+  
     setIsBreathing(true);
     setShowEmbed(true);
     setIsRunning(false);
+  
     setTimeout(() => {
       setIsBreathing(false);
       setQuote('Feeling calmer? Ready to focus?');
+      chime.pause(); // optional, depending on how long your chime is
     }, 30000);
   };
 
@@ -104,14 +139,16 @@ export default function HomePage() {
   };
 
   return (
-    <main className="w-full overflow-x-hidden min-h-screen bg-zinc-900 text-white flex flex-col items-center px-4 py-12">
+    <main className="font-nunito w-full overflow-x-hidden min-h-screen bg-zinc-900 text-white flex flex-col items-center px-4 py-12">
       {isBreathing ? (
         <BreatheTimer />
       ) : (
         <>
-          <h1 className={`${nunito.className} text-4xl font-bold mb-4`}>isitfocustime.com</h1>
-          <p className="text-xl mb-2 text-center">{quote}</p>
-          {!isRunning && <p className="text-sm text-zinc-400 mb-4">{getTimeSnark()}</p>}
+          <h1 className="text-4xl font-bold mb-4">isitfocustime.com</h1>
+          <p className="text-4xl font-bold mb-4">Focus Timer</p>
+          {!isRunning && (
+          <p className="text-xl mb-4 text-center">{quote}</p>
+          )}
 
           {!isRunning && (
             <div className="mb-4 flex flex-col items-center">
@@ -122,55 +159,41 @@ export default function HomePage() {
                 max={120}
                 value={timeInput}
                 onChange={(e) => setTimeInput(Number(e.target.value))}
-                className="w-24 px-3 py-2 rounded-lg bg-zinc-800 border border-zinc-700 text-center text-white"
+                className="w-24 px-3 py-2 rounded-lg bg-zinc-800 border border-zinc-600 text-center"
               />
-              {timeInput >= 60 && (
-                <p className="text-yellow-400 text-xs mt-2">💀 That's a long one. Don’t forget to blink.</p>
-              )}
             </div>
           )}
 
-          {isPomodoro && (
-            <p className="text-sm text-zinc-400 mb-4">{isBreak ? 'Break Time' : 'Focus Time'}</p>
-          )}
+          {isPomodoro && <p className="text-sm text-zinc-500 mb-4">{isBreak ? 'Break Time' : 'Focus Time'} (Round {rounds % 4 || 1}/4)</p>}
 
-          <div className="text-6xl font-nunito mb-6">{formatTime(secondsLeft)}</div>
+          <div className="text-6xl mb-6 font-bold">{formatTime(secondsLeft)}</div>
 
           {!isRunning && (
-            <button
-              onClick={startTimer}
-              className="px-6 py-3 bg-green-500 hover:bg-green-600 text-white text-lg rounded-lg mb-4 transition"
-            >
+            <button onClick={startTimer} className="px-6 py-3 bg-green-500 hover:bg-green-600 text-white text-lg rounded-xl mb-4 transition">
               Start Focus Session
             </button>
           )}
 
           {!isRunning && (
-            <button
-              onClick={startBreatheMode}
-              className="px-6 py-2 bg-blue-500 hover:bg-blue-600 text-white rounded-lg mb-4 transition"
-            >
+            <button onClick={startBreatheMode} className="px-6 py-2 bg-blue-500 hover:bg-blue-600 text-white rounded-xl mb-4 transition">
               Start 30-Second Breathe Reset
             </button>
           )}
 
           {!isRunning && (
-            <Link href="/meditation-player" className="text-green-400 hover:underline mb-4">
-              Start a Meditation Session →
-            </Link>
+            <div className="text-sm mb-4">
+              <label className="flex items-center gap-2">
+                <input type="checkbox" checked={isPomodoro} onChange={() => setIsPomodoro(!isPomodoro)} />
+                Enable Real Pomodoro Mode (25/5/30)
+              </label>
+            </div>
           )}
 
           {!isRunning && (
-            <div className="mt-2 text-sm">
-              <label className="flex items-center gap-2">
-                <input
-                  type="checkbox"
-                  checked={isPomodoro}
-                  onChange={() => setIsPomodoro(!isPomodoro)}
-                />
-                Enable Real Pomodoro Mode (25/5)
-              </label>
-            </div>
+          <nav className="text-sm space-x-4">
+          <Link href="/meditation-player" className="text-green-400 hover:underline mb-4">Meditation Session</Link>
+          <Link href="/habit-tracker" className="text-green-400 hover:underline mb-4">Habit Tracker</Link>
+          </nav>
           )}
 
           {showEmbed && <EmbedBlock />}
