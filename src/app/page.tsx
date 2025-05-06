@@ -192,7 +192,7 @@ export default function HomePage() {
           {!isRunning && (
           <nav className="text-sm space-x-4">
           <Link href="/meditation-player" className="text-green-400 hover:underline mb-4">Meditation Session</Link>
-          <Link href="/habit-tracker" className="text-green-400 hover:underline mb-4">Habit Tracker</Link>
+          <Link href="/5-minute-journal" className="text-green-400 hover:underline mb-4">5 Minute Journal</Link>
           </nav>
           )}
 
