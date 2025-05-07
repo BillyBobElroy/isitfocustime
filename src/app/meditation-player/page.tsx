@@ -34,6 +34,10 @@ export default function MeditationPage() {
               data-ad-format="auto"
               data-full-width-responsive="true"
             />
+
+            
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4813693653154178"
+     crossOrigin="anonymous"></script>
             <ins
               className="adsbygoogle inline-block md:hidden"
               style={{ width: '300px', height: '250px' }}

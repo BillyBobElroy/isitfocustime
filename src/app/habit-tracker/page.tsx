@@ -232,6 +232,10 @@ export default function HabitTrackerPage() {
         </div>
       )}
 
+      
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4813693653154178"
+     crossOrigin="anonymous"></script>
+
       {/* 🔔 Daily Reminder Modal */}
       <DailyReminder habits={habits} />
     </div>

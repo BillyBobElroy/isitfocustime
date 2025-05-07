@@ -77,6 +77,11 @@ export default function JournalPage() {
       </button>
 
       {saved && <p className="mt-4 text-green-600">Your journal entry was saved!</p>}
+    
+    
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4813693653154178"
+     crossOrigin="anonymous"></script>
+    
     </main>
   );
 }

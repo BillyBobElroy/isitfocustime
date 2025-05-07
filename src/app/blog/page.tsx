@@ -14,7 +14,7 @@ export default function BlogPage() {
     <div className="flex flex-col items-center min-h-screen bg-zinc-900 text-white px-4 py-12">
       <div className="max-w-4xl w-full space-y-10">
         <h1 className="text-4xl font-bold mb-10 text-center">isitfocustime Blog</h1>
-        <p className="text-gray-600 text-base max-w-xl mx-auto">
+        <p className="text-white text-base max-w-xl mx-auto">
         Discover expert tips, focus tools, and wellness guides on our blog — designed to boost productivity, mindfulness, and mental clarity through distraction-free, practical insights.
         </p>
 
