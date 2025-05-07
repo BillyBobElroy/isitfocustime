@@ -196,6 +196,9 @@ export default function HomePage() {
           </nav>
           )}
 
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4813693653154178"
+     crossOrigin="anonymous"></script>
+
           {showEmbed && <EmbedBlock />}
 
           <div className="my-8 flex justify-center">
