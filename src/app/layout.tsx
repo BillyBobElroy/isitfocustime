@@ -3,6 +3,7 @@ import { Nunito, Nunito_Sans } from 'next/font/google';
 import type { Metadata } from 'next';
 import Footer from '@/components/Footer';
 import Navbar from '@/components/Navbar';
+import { Analytics } from "@vercel/analytics/next"
 
 const nunito = Nunito({
   weight: ['400', '700'],
@@ -91,6 +92,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       <body className={nunito.className}>
         <Navbar />
         {children}
+          <Analytics />
         <Footer />
       </body>
   </html>
