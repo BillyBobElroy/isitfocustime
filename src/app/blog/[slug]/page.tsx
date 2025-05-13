@@ -37,16 +37,16 @@ export default async function BlogPostPage(props: any) {
   }
 
   return (
-    <div className="flex flex-col items-center min-h-screen bg-white text-black px-4 py-12">
+    <div className="flex flex-col items-center min-h-screen bg-zinc-900 text-white px-4 py-12">
       <div className="max-w-3xl w-full">
-        <h1 className="text-4xl font-bold text-black mb-4">{post.meta.title}</h1>
-        <p className="text-sm text-black mb-8">
+        <h1 className="text-4xl font-bold mb-4">{post.meta.title}</h1>
+        <p className="text-sm text-zinc-400 mb-8">
           {formatDate(post.meta.date)} | {calculateReadingTime(post.content)} min read
         </p>
 
         <TOC />
 
-        <div className="prose prose-zinc prose-invert text-black max-w-none mb-16">
+        <div className="prose prose-zinc prose-invert text-white max-w-none mb-16">
           <MDXRemote
               source={post.content}
               options={{
