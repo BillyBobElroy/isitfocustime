@@ -26,7 +26,13 @@ export async function generateStaticParams() {
 }
 
 // ✅ Make BlogPostPage async
-export default async function BlogPostPage(props: any) {
+interface BlogPostPageProps {
+  params: {
+    slug: string;
+  };
+}
+
+export default async function BlogPostPage(props: BlogPostPageProps) {
   const { params } = await props; // ✅ properly await props at top level
 
   const slug = decodeURIComponent(params.slug);
