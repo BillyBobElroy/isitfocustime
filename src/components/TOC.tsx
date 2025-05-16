@@ -8,7 +8,7 @@ export function TOC() {
   const activeId = useActiveHeading();
 
   useEffect(() => {
-    const elements = Array.from(document.querySelectorAll('h2, h3'));
+    const elements = Array.from(document.querySelectorAll('h1, h2'));
     const mapped = elements.map((el) => ({
       id: el.id,
       text: el.textContent || '',
