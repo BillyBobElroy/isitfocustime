@@ -174,7 +174,7 @@ export default function HomePage() {
       animate={{ opacity: 0.15, scale: [1, 1.4, 1] }}
       exit={{ opacity: 0 }}
       transition={{ duration: 8, repeat: Infinity, ease: 'easeInOut' }}
-      className="absolute w-80 h-80 rounded-full bg-green-400 blur-3xl opacity-20"
+      className="absolute w-80 h-80 rounded-full bg-green-500 blur-2xl opacity-20"
     />
   )}
 </AnimatePresence>
