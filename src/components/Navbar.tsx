@@ -58,11 +58,8 @@ export default function Navbar() {
       hoveredDropdown === 'timer' ? 'opacity-100 visible' : 'opacity-0 invisible'
     }`}
   >
-    <Link
-      href="/meditation-player"
-      className="block px-4 py-2 hover:bg-zinc-700"
-    >
-      Meditation Player
+    <Link href="/habit-tracker" className="block px-4 py-2 hover:bg-zinc-700">
+      Habit Tracker
     </Link>
   </div>
 </div>
@@ -89,8 +86,11 @@ export default function Navbar() {
       hoveredDropdown === 'tools' ? 'opacity-100 visible' : 'opacity-0 invisible'
     }`}
   >
-    <Link href="/habit-tracker" className="block px-4 py-2 hover:bg-zinc-700">
-      Habit Tracker
+    <Link
+      href="/meditation-player"
+      className="block px-4 py-2 hover:bg-zinc-700"
+    >
+      Meditation Player
     </Link>
     <Link href="/mood-tracker" className="block px-4 py-2 hover:bg-zinc-700">
       Mood Tracker
