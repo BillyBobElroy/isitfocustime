@@ -172,7 +172,7 @@ export default function HomePage() {
     <motion.div
       initial={{ opacity: 0 }}
       animate={{ opacity: 0.15, scale: [1, 1.4, 1] }}
-      exit={{ opacity: 0 }}
+      exit={{ opacity: 0.15, scale: 1 }}
       transition={{ duration: 8, repeat: Infinity, ease: 'easeInOut' }}
       className="absolute w-80 h-80 rounded-full bg-green-500 blur-2xl opacity-20"
     />
