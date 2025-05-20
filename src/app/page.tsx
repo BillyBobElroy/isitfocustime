@@ -6,6 +6,7 @@ import Link from 'next/link';
 import { Nunito } from 'next/font/google';
 import { EmbedBlock } from '@/components/EmbedBlock';
 import BreatheTimer from '@/components/BreatheTimer';
+import { motion, AnimatePresence } from 'framer-motion';
 
 const nunito = Nunito({
   weight: ['400', '700'],
@@ -165,6 +166,18 @@ export default function HomePage() {
           )}
 
           {isPomodoro && <p className="text-sm text-zinc-500 mb-4">{isBreak ? 'Break Time' : 'Focus Time'} (Round {rounds % 4 || 1}/4)</p>}
+          
+          <AnimatePresence>
+  {isRunning && !isBreathing && (
+    <motion.div
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 0.15, scale: [1, 1.4, 1] }}
+      exit={{ opacity: 0 }}
+      transition={{ duration: 8, repeat: Infinity, ease: 'easeInOut' }}
+      className="absolute w-80 h-80 rounded-full bg-green-400 blur-3xl opacity-20"
+    />
+  )}
+</AnimatePresence>
 
           <div className="text-6xl mb-6 font-bold">{formatTime(secondsLeft)}</div>
 
