@@ -167,20 +167,45 @@ export default function HomePage() {
 
           {isPomodoro && <p className="text-sm text-zinc-500 mb-4">{isBreak ? 'Break Time' : 'Focus Time'} (Round {rounds % 4 || 1}/4)</p>}
           
-          <AnimatePresence>
-  {isRunning && !isBreathing && (
-    <motion.div
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 0.15, scale: [1, 1.4, 1] }}
-      exit={{ opacity: 0.15, scale: 1 }}
-      transition={{ duration: 8, repeat: Infinity, ease: 'easeInOut' }}
-      className="absolute w-80 h-80 rounded-full bg-green-500 blur-2xl opacity-20"
-    />
-  )}
-</AnimatePresence>
+ <AnimatePresence>
+    {isRunning && !isBreathing && (
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{
+          opacity: [0.2, 0.3, 0.2],
+          scale: [1, 1.35, 1],
+          background: [
+            'radial-gradient(circle at center, #22c55e 0%, transparent 70%)',
+            'radial-gradient(circle at center, #4ade80 0%, transparent 70%)',
+            'radial-gradient(circle at center, #22c55e 0%, transparent 70%)',
+          ],
+        }}
+        exit={{ opacity: 0 }}
+        transition={{
+          duration: 10,
+          repeat: Infinity,
+          ease: 'easeInOut',
+        }}
+        style={{
+          position: 'absolute',
+          width: '20rem',
+          height: '20rem',
+          borderRadius: '9999px',
+          zIndex: 0,
+        }}
+      />
+    )}
+  </AnimatePresence>
 
-          <div className="text-6xl mb-6 font-bold">{formatTime(secondsLeft)}</div>
-
+          <motion.div 
+            className="text-6xl mb-6 font-bold"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.5 }}
+            >
+            {formatTime(secondsLeft)}
+            </motion.div>
+    
           {!isRunning && (
             <button onClick={startTimer} className="px-6 py-3 bg-green-500 hover:bg-green-600 text-white text-lg rounded-xl mb-4 transition">
               Start Focus Session
