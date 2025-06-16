@@ -37,7 +37,7 @@ export default async function BlogPostPage(props: any) {
   }
 
   return (
-    <div className="flex flex-col items-center min-h-screen bg-zinc-900 text-white px-4 py-12">
+    <div className="min-h-screen bg-gradient-to-b from-zinc-900 via-zinc-800 to-zinc-900 text-white py-12 px-4 flex flex-col items-center">
       <div className="max-w-3xl w-full">
         <h1 className="text-4xl font-bold mb-4">{post.meta.title}</h1>
         <p className="text-sm text-zinc-400 mb-8">

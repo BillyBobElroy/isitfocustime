@@ -97,7 +97,7 @@ export default function YouDidIt() {
 
       <p className="text-lg mt-2 text-green-300 italic mb-4">{scoreMessage}</p>
 
-      <Link href="/">
+      <Link href="/focus-timer">
         <button className="px-6 py-3 bg-white text-green-900 text-lg font-semibold rounded-lg hover:bg-gray-100 transition">
           Start Another Session
         </button>

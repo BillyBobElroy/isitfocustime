@@ -12,11 +12,13 @@ const nunito = Nunito({
 
 export default function MeditationPage() {
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen bg-zinc-900 text-white px-6 py-12">
+    <div className="min-h-screen font-nunito bg-gradient-to-b from-zinc-900 via-zinc-800 to-zinc-900 text-white py-12 px-4 flex flex-col items-center justify-center">
             <div className="max-w-md w-full space-y-8">
             <div className="text-center">
-      <h1 className={`${nunito.className} text-4xl font-bold mb-4`}>isitfocustime.com</h1>
-      <p className="text-4xl font-bold mb-8">Meditation Timer</p>
+          <div className="text-3xl font-bold tracking-tight text-white mb-1">
+          <span className="text-green-400">isit</span>focustime<span className="text-green-400">.com</span>
+          </div>
+          <p className="text-4xl font-black tracking-tight mb-2">Meditation Player</p>
 
       <MeditationPlayer />
 

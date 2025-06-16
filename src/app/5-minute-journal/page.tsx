@@ -1,6 +1,12 @@
 'use client';
 
 import { useEffect, useState } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
+import { Sun, Moon, PencilLine } from 'lucide-react';
+import { useFirebaseUser } from '@/hooks/useFirebaseUser';
+import { db } from '@/lib/firebase';
+import { collection, getDocs, orderBy, query } from 'firebase/firestore';
+import { saveUserEntry } from '@/lib/saveUserEntry';
 
 const morningPrompts = [
   'What are you grateful for today?',
@@ -28,17 +34,58 @@ export default function JournalPage() {
   const [filter, setFilter] = useState<'all' | 'morning' | 'evening'>('all');
   const [page, setPage] = useState(1);
   const entriesPerPage = 5;
+  const { user } = useFirebaseUser();
 
   useEffect(() => {
-    const hour = new Date().getHours();
-    setIsMorning(hour < 17);
+    const loadEntries = async () => {
+      const hour = new Date().getHours();
+      setIsMorning(hour < 17);
 
-    const stored = localStorage.getItem('journal-entries');
-    if (stored) {
-      const parsed: Entry[] = JSON.parse(stored);
-      setPastEntries(parsed.sort((a, b) => b.date.localeCompare(a.date)));
-    }
-  }, []);
+      const localKey = 'journal-entries';
+      const localData: Entry[] = JSON.parse(localStorage.getItem(localKey) || '[]');
+      let mergedEntries: Entry[] = [...localData];
+
+      if (user?.uid) {
+        try {
+          const ref = collection(db, 'users', user.uid, 'fiveMinJournal');
+          const q = query(ref, orderBy('timestamp', 'desc'));
+          const snap = await getDocs(q);
+
+          const firestoreEntries: Entry[] = snap.docs.map((doc) => ({
+            ...(doc.data() as Entry),
+          }));
+
+          // Merge and prevent duplicates (same date + type)
+          const unsynced = localData.filter(
+            (entry) =>
+              !firestoreEntries.some(
+                (f) => f.date === entry.date && f.type === entry.type
+              )
+          );
+
+          // Auto-sync unsynced local entries to Firestore
+          await Promise.all(
+            unsynced.map((entry) =>
+              saveUserEntry(user.uid, 'fiveMinJournal', entry)
+            )
+          );
+
+          mergedEntries = [
+            ...firestoreEntries,
+            ...unsynced,
+          ].sort((a, b) => b.date.localeCompare(a.date));
+
+          localStorage.setItem(localKey, JSON.stringify(mergedEntries));
+        } catch (err) {
+          console.error('Failed to fetch or sync Firestore entries:', err);
+        }
+      }
+
+      setPastEntries(mergedEntries);
+    };
+
+    loadEntries();
+  }, [user]);
 
   const handleChange = (index: number, value: string) => {
     const updated = [...entries];
@@ -46,7 +93,7 @@ export default function JournalPage() {
     setEntries(updated);
   };
 
-  const handleSave = () => {
+  const handleSave = async () => {
     const today = new Date().toISOString().split('T')[0];
     const key = 'journal-entries';
 
@@ -56,12 +103,21 @@ export default function JournalPage() {
       responses: entries,
     };
 
+    // Save to Firestore
+    if (user?.uid) {
+      try {
+        await saveUserEntry(user.uid, 'fiveMinJournal', newEntry);
+      } catch (err) {
+        console.error('Firestore save failed:', err);
+      }
+    }
+
+    // Save to localStorage
     const existing = JSON.parse(localStorage.getItem(key) || '[]');
     const filtered = existing.filter(
       (e: Entry) => !(e.date === today && e.type === newEntry.type)
     );
     const updated = [newEntry, ...filtered];
-
     localStorage.setItem(key, JSON.stringify(updated));
     setPastEntries(updated);
     setSaved(true);
@@ -88,35 +144,71 @@ export default function JournalPage() {
   );
 
   return (
-    <main className="min-h-screen bg-zinc-900 text-white px-4 py-12 flex flex-col items-center font-nunito">
-      <h1 className="text-4xl font-bold mb-2">5-Minute Journal</h1>
-      <p className="text-xl text-white mb-6">{greeting()}, take a moment to reflect.</p>
+    <motion.main
+      className="min-h-screen bg-gradient-to-b from-zinc-900 via-zinc-800 to-zinc-900 text-white py-12 px-4 flex flex-col items-center font-nunito"
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      transition={{ duration: 1 }}
+    >
+      <motion.section
+        className="w-full max-w-3xl mb-12 text-center"
+        initial={{ opacity: 0, y: -20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.6 }}
+      >
+          <div className="text-3xl font-bold tracking-tight text-white mb-1">
+          <span className="text-green-400">isit</span>focustime<span className="text-green-400">.com</span>
+          </div>
+        <p className="text-4xl font-black tracking-tight mb-2">5-Minute Journal</p>
+        <p className="text-xl text-zinc-200 mb-4">{greeting()}, take a moment to reflect mindfully.</p>
+        <p className="text-lg text-zinc-400">
+          Start or end your day with intention. Your answers are saved privately in your browser{user ? ' and your account' : ''}.
+        </p>
+      </motion.section>
 
-      <div className="w-full max-w-xl space-y-6">
+      <section className="w-full max-w-xl space-y-6">
         {prompts.map((prompt, idx) => (
-          <div key={idx}>
-            <label className="block font-semibold mb-2">{prompt}</label>
+          <motion.div
+            key={idx}
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.1 * idx }}
+          >
+            <label className="font-semibold text-zinc-100 mb-2 flex items-center gap-2">
+              {isMorning ? <Sun className="w-5 h-5 text-yellow-400" /> : <Moon className="w-5 h-5 text-purple-300" />} {prompt}
+            </label>
             <textarea
               rows={3}
               value={entries[idx]}
               onChange={(e) => handleChange(idx, e.target.value)}
-              className="w-full rounded-lg bg-zinc-800 border border-zinc-300 p-3 focus:outline-none focus:ring-2 focus:ring-blue-300"
+              className="w-full flex items-center gap-2 mb-3 bg-zinc-800 border-zinc-700 p-3 rounded-xl shadow"
             />
-          </div>
+          </motion.div>
         ))}
-      </div>
+      </section>
 
       <button
         onClick={handleSave}
-        className="mt-8 bg-green-500 hover:bg-green-600 text-white font-semibold px-6 py-3 rounded-xl"
+        className="mt-8 bg-green-500 hover:bg-green-600 text-white font-semibold px-6 py-3 rounded-xl transition"
       >
-        Save Entry
+        Save Journal Entry
       </button>
 
-      {saved && <p className="mt-4 text-green-400">Your journal entry was saved!</p>}
+      <AnimatePresence>
+        {saved && (
+          <motion.p
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="mt-4 text-green-400"
+          >
+            Your journal entry was saved!
+          </motion.p>
+        )}
+      </AnimatePresence>
 
       {filteredEntries.length > 0 && (
-        <div className="mt-12 w-full max-w-xl">
+        <div className="mt-16 w-full max-w-xl">
           <h2 className="text-2xl font-bold mb-4">📔 Past Entries</h2>
 
           <div className="flex justify-between items-center mb-4">
@@ -180,6 +272,6 @@ export default function JournalPage() {
           </div>
         </div>
       )}
-    </main>
+    </motion.main>
   );
 }
