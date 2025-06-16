@@ -151,6 +151,7 @@ const getAvatar = () => {
     />
   );
 };
+console.log("Current avatar ID:", user?.avatarId);
 
   const getAdaptiveFlow = () => {
     switch (timeOfDay) {
