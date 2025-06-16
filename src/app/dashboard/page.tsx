@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { useRouter } from 'next/navigation';
 import { useFirebaseUser } from "@/hooks/useFirebaseUser";
 import { doc, getDoc, collection, getDocs, query, orderBy } from "firebase/firestore";
 import { db } from "@/lib/firebase";
@@ -14,7 +15,8 @@ import AvatarModal from "@/components/AvatarModal";
 import Image from "next/image";
 
 export default function ProfilePage() {
-  const { user, refetchUser } = useFirebaseUser();
+  const { user, loading, refetchUser } = useFirebaseUser();
+const router = useRouter(); // 👈 this gives you router.push
   const [stats, setStats] = useState({
     streak: 0,
     totalSessions: 0,
@@ -31,7 +33,6 @@ export default function ProfilePage() {
   const [affirmation, setAffirmation] = useState<string | null>(null);
   const [showAvatarModal, setShowAvatarModal] = useState(false);
   const [selectedAvatar, setSelectedAvatar] = useState("default"); // e.g., from Firestore
-
 
   useEffect(() => {
     const hour = new Date().getHours();
@@ -184,6 +185,16 @@ const getAvatar = () => {
         );
     }
   };
+
+      useEffect(() => {
+    if (!loading && !user) {
+      router.push('/signin'); // 👈 redirect if unauthenticated
+    }
+  }, [loading, user, router]);
+
+  if (loading || !user) {
+    return <div className="text-center mt-10">Loading...</div>;
+  }
 
   return (
     <main className="min-h-screen bg-gradient-to-b from-zinc-900 via-zinc-800 to-zinc-900 text-white py-12 px-4 flex flex-col items-center">

@@ -15,7 +15,7 @@ export default function SignInPage() {
   const handleSignIn = async () => {
     try {
       await signInWithEmailAndPassword(auth, email, password);
-      router.push('/profile');
+      router.push('/dashboard');
     } catch (err) {
       alert('Login failed');
     }

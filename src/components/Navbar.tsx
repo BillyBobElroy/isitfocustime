@@ -112,8 +112,17 @@ const [sleepOpen, setSleepOpen] = useState(false);
           </div>
         ) : (
           <>
-            <Link href="/signin" className="hover:text-green-400">Sign In</Link>
-            <Link href="/signup" className="hover:text-green-400">Sign Up</Link>
+<div className="flex items-center gap-4">
+  <Link href="/signin" className="hover:text-green-400">
+    Sign In
+  </Link>
+  <Link
+    href="/signup"
+    className="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600 transition"
+  >
+    Sign Up
+  </Link>
+</div>
           </>
         )}
 

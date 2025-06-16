@@ -8,13 +8,13 @@ import { saveUserToFirestore } from '@/lib/saveUserToFirestore';
 import { avatarUnlocks } from "@/lib/avatarUnlockConditions";
 
 const avatars = [
-  { id: 'focusfox', label: 'Focus Fox', image: '/avatars/characters/focusfox.png' },
-  { id: 'zenzo', label: 'Zenzo', image: '/avatars/characters/zenzo.png' },
-  { id: 'breezy', label: 'Breezy', image: '/avatars/characters/breezy.png' },
-  { id: 'glowbear', label: 'Glow Bear', image: '/avatars/characters/glowbear.png' },
-  { id: 'drift', label: 'Drift', image: '/avatars/characters/drift.png' },
-  { id: 'luma', label: 'Luma', image: '/avatars/characters/luma.png' },
-  { id: 'sprout', label: 'Sprout', image: '/avatars/characters/sprout.png' },
+  { id: 'focusfox', label: 'Focus Fox', image: '/avatars/characters/FocusFox.png' },
+  { id: 'zenzo', label: 'Zenzo', image: '/avatars/characters/Zenzo.png' },
+  { id: 'breezy', label: 'Breezy', image: '/avatars/characters/Breezy.png' },
+  { id: 'glowbear', label: 'Glow Bear', image: '/avatars/characters/GlowBear.png' },
+  { id: 'drift', label: 'Drift', image: '/avatars/characters/Drift.png' },
+  { id: 'luma', label: 'Luma', image: '/avatars/characters/Luma.png' },
+  { id: 'sprout', label: 'Sprout', image: '/avatars/characters/Sprout.png' },
 ];
 
 export default function AvatarModal({
