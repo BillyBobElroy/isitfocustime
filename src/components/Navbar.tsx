@@ -112,7 +112,7 @@ const [sleepOpen, setSleepOpen] = useState(false);
           </div>
         ) : (
           <>
-<div className="flex items-center gap-4">
+<div className="hidden md:flex items-center gap-4">
   <Link href="/signin" className="hover:text-green-400">
     Sign In
   </Link>
@@ -159,7 +159,7 @@ const [sleepOpen, setSleepOpen] = useState(false);
     <div>
       <button
         onClick={() => setWellnessOpen((prev) => !prev)}
-        className="justify-between w-full font-semibold"
+        className="flex justify-between w-full font-semibold"
       >
         Mental Wellness <span>{wellnessOpen ? '▲' : '▼'}</span>
       </button>
