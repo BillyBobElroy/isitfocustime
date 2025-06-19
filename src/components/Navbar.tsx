@@ -141,7 +141,7 @@ const [sleepOpen, setSleepOpen] = useState(false);
     <div>
       <button
         onClick={() => setFocusOpen((prev) => !prev)}
-        className="flex justify-between w-full font-semibold"
+        className="justify-between block w-full font-semibold"
       >
         Focus <span>{focusOpen ? '▲' : '▼'}</span>
       </button>
@@ -159,7 +159,7 @@ const [sleepOpen, setSleepOpen] = useState(false);
     <div>
       <button
         onClick={() => setWellnessOpen((prev) => !prev)}
-        className="flex justify-between w-full font-semibold"
+        className="justify-between block w-full font-semibold"
       >
         Mental Wellness <span>{wellnessOpen ? '▲' : '▼'}</span>
       </button>
@@ -178,7 +178,7 @@ const [sleepOpen, setSleepOpen] = useState(false);
     <div>
       <button
         onClick={() => setSleepOpen((prev) => !prev)}
-        className="flex justify-between w-full font-semibold"
+        className="block justify-between w-full font-semibold"
       >
         Sleep <span>{sleepOpen ? '▲' : '▼'}</span>
       </button>
