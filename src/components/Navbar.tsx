@@ -135,7 +135,7 @@ const [sleepOpen, setSleepOpen] = useState(false);
 
 {/* Mobile Menu */}
 {mobileMenuOpen && (
-  <div className="absolute top-16 right-0 w-64 bg-zinc-800 rounded-lg shadow-lg py-4 px-6 z-50 space-y-4 text-white text-sm">
+  <div className="absolute block top-16 right-0 w-64 bg-zinc-800 rounded-lg shadow-lg py-4 px-6 z-50 space-y-4 text-white text-sm">
 
     {/* Focus Dropdown */}
     <div>
@@ -195,13 +195,13 @@ const [sleepOpen, setSleepOpen] = useState(false);
     {/* Auth */}
     {user ? (
       <>
-        <span className="text-green-400 font-medium">Hello, {user.firstName}</span>
-        <button onClick={logout} className="text-red-400 hover:underline">Log Out</button>
+        <span className="block w-full text-green-400 font-medium">Hello, {user.firstName}</span>
+        <button onClick={logout} className="block w-full text-red-400 hover:underline">Log Out</button>
       </>
     ) : (
       <>
-        <Link href="/signin" className="hover:text-green-400" onClick={() => setMobileMenuOpen(false)}>Sign In</Link>
-        <Link href="/signup" className="hover:text-green-400" onClick={() => setMobileMenuOpen(false)}>Sign Up</Link>
+        <Link href="/signin" className="block w-full text-right hover:text-green-400" onClick={() => setMobileMenuOpen(false)}>Sign In</Link>
+        <Link href="/signup" className="block w-full text-right hover:text-green-400" onClick={() => setMobileMenuOpen(false)}>Sign Up</Link>
       </>
     )}
   </div>
