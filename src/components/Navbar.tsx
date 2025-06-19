@@ -141,16 +141,16 @@ const [sleepOpen, setSleepOpen] = useState(false);
     <div>
       <button
         onClick={() => setFocusOpen((prev) => !prev)}
-        className="justify-between block w-full font-semibold"
+        className="flex justify-between w-full font-semibold"
       >
         Focus <span>{focusOpen ? '▲' : '▼'}</span>
       </button>
       {focusOpen && (
         <div className="ml-3 mt-2 space-y-2">
-          <Link href="/focus-timer" onClick={() => setMobileMenuOpen(false)}>Focus Timer</Link>
-          <Link href="/breathe-timer" onClick={() => setMobileMenuOpen(false)}>Breathe Timer</Link>
-          <Link href="/habit-tracker" onClick={() => setMobileMenuOpen(false)}>Habit Tracker</Link>
-          <Link href="/routine-builder" onClick={() => setMobileMenuOpen(false)}>Routine Builder</Link>
+          <Link href="/focus-timer" className="block w-full text-left" onClick={() => setMobileMenuOpen(false)}>Focus Timer</Link>
+          <Link href="/breathe-timer" className="block w-full text-left" onClick={() => setMobileMenuOpen(false)}>Breathe Timer</Link>
+          <Link href="/habit-tracker" className="block w-full text-left" onClick={() => setMobileMenuOpen(false)}>Habit Tracker</Link>
+          <Link href="/routine-builder" className="block w-full text-left" onClick={() => setMobileMenuOpen(false)}>Routine Builder</Link>
         </div>
       )}
     </div>
@@ -159,17 +159,17 @@ const [sleepOpen, setSleepOpen] = useState(false);
     <div>
       <button
         onClick={() => setWellnessOpen((prev) => !prev)}
-        className="justify-between block w-full font-semibold"
+        className="justify-between w-full font-semibold"
       >
         Mental Wellness <span>{wellnessOpen ? '▲' : '▼'}</span>
       </button>
       {wellnessOpen && (
         <div className="ml-3 mt-2 space-y-2">
-          <Link href="/meditation-player" onClick={() => setMobileMenuOpen(false)}>Meditation Player</Link>
-          <Link href="/mood-tracker" onClick={() => setMobileMenuOpen(false)}>Mood Tracker</Link>
-          <Link href="/gratitude-journal" onClick={() => setMobileMenuOpen(false)}>Gratitude Journal</Link>
-          <Link href="/5-minute-journal" onClick={() => setMobileMenuOpen(false)}>5-Minute Journal</Link>
-          <Link href="/mini-cbt-journal" onClick={() => setMobileMenuOpen(false)}>Mini CBT Journal</Link>
+          <Link href="/meditation-player" className="block w-full text-left" onClick={() => setMobileMenuOpen(false)}>Meditation Player</Link>
+          <Link href="/mood-tracker" className="block w-full text-left" onClick={() => setMobileMenuOpen(false)}>Mood Tracker</Link>
+          <Link href="/gratitude-journal" className="block w-full text-left" onClick={() => setMobileMenuOpen(false)}>Gratitude Journal</Link>
+          <Link href="/5-minute-journal" className="block w-full text-left" onClick={() => setMobileMenuOpen(false)}>5-Minute Journal</Link>
+          <Link href="/mini-cbt-journal" className="block w-full text-left" onClick={() => setMobileMenuOpen(false)}>Mini CBT Journal</Link>
         </div>
       )}
     </div>
@@ -178,13 +178,13 @@ const [sleepOpen, setSleepOpen] = useState(false);
     <div>
       <button
         onClick={() => setSleepOpen((prev) => !prev)}
-        className="block justify-between w-full font-semibold"
+        className="flex justify-between w-full font-semibold"
       >
         Sleep <span>{sleepOpen ? '▲' : '▼'}</span>
       </button>
       {sleepOpen && (
         <div className="ml-3 mt-2 space-y-2">
-          <Link href="/sleep-diary" onClick={() => setMobileMenuOpen(false)}>Sleep Diary</Link>
+          <Link href="/sleep-diary" className="block w-full text-left" onClick={() => setMobileMenuOpen(false)}>Sleep Diary</Link>
         </div>
       )}
     </div>
@@ -200,8 +200,8 @@ const [sleepOpen, setSleepOpen] = useState(false);
       </>
     ) : (
       <>
-        <Link href="/signin" className="block w-full text-right hover:text-green-400" onClick={() => setMobileMenuOpen(false)}>Sign In</Link>
-        <Link href="/signup" className="block w-full text-right hover:text-green-400" onClick={() => setMobileMenuOpen(false)}>Sign Up</Link>
+        <Link href="/signin" className="block w-full text-left hover:text-green-400" onClick={() => setMobileMenuOpen(false)}>Sign In</Link>
+        <Link href="/signup" className="block w-full text-left hover:text-green-400" onClick={() => setMobileMenuOpen(false)}>Sign Up</Link>
       </>
     )}
   </div>
